@@ -7,8 +7,6 @@ import {
     View,
 } from 'react-native';
 
-const remote = 'https://images.unsplash.com/photo-1502780033682-7c480d8624b3?auto=format&fit=crop&w=648&q=80';
-
 export default class BackgroundImage2 extends Component {
     render() {
 
@@ -19,7 +17,7 @@ export default class BackgroundImage2 extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.imageView}>
-                    <Image style={styles.image} source={{ uri: remote }}/>
+                    <Image style={styles.image} source={require('../assets/leaf.jpg')}/>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.text}>{text}</Text>
