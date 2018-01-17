@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
     Image,
     StyleSheet,
@@ -7,10 +7,8 @@ import {
     View,
 } from 'react-native';
 
-export default class BackgroundImage2 extends Component {
+export default class WelcomeScreen extends React.Component {
     render() {
-
-        const {navigate} = this.props.navigation;
 
         const text = 'Welcome To My App';
 
@@ -24,7 +22,7 @@ export default class BackgroundImage2 extends Component {
                 </View>
 
                 <View style={styles.buttonView}>
-                    <TouchableOpacity onPress={() => navigate('LoginFull')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Login")}>
                         <Text style={styles.enterButton}>Enter</Text>
                     </TouchableOpacity>
                 </View>

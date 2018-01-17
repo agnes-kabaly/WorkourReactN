@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Logo from "../components/Logo";
 
-export default class LoginFull extends Component {
+export default class Login extends Component {
 
     constructor(props) {
         super(props);
@@ -18,18 +18,6 @@ export default class LoginFull extends Component {
         this.state = {
             email: '',
             password: '',
-        }
-    }
-
-    componentDidMount() {
-        this._loadInitialState().done();
-    }
-
-    _loadInitialState = async () => {
-
-        var value = await AsyncStorage.getItem('user');
-        if(value != null) {
-            this.props.navigation.navigate('Profile');
         }
     }
 
@@ -47,8 +35,7 @@ export default class LoginFull extends Component {
                                    selectionColor="#ffffff"
                                    keyboardType="email-address"
                                    onChangeText={ (email) => this.setState({email})}
-                                   value={this.state.email}
-                                   //onSubmitEditing={() => this.email.focus()}
+                                   //value={this.state.email}
                         />
                         <TextInput style={styles.inputBox}
                                    underlineColorAndroid="transparent"
@@ -57,8 +44,7 @@ export default class LoginFull extends Component {
                                    placeholderTextColor = "#ffffff"
                                    selectionColor="#ffffff"
                                    onChangeText={ (password) => this.setState({password})}
-                                   value={this.state.password}
-                                   //ref={(input) => this.password = input}
+                                   //value={this.state.password}
                         />
                         <TouchableOpacity
                             style={styles.button}
@@ -69,7 +55,7 @@ export default class LoginFull extends Component {
                     <View style={styles.registerContent}>
                         <Text style={styles.registerText}>Don't have an account yet?</Text>
                         <TouchableOpacity onPress={() =>
-                            this.props.navigation.navigate('RegisterFull')}>
+                            this.props.navigation.navigate('Register')}>
                             <Text style={styles.registerButton}> Sign up</Text>
                         </TouchableOpacity>
                     </View>
@@ -79,33 +65,13 @@ export default class LoginFull extends Component {
     }
 
     login = () => {
-
-        //fetch('http://192.168.150.158:8080/getUser', {
-        fetch('http://192.168.1.22:8080/getUser', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type' : 'application/json',
-            },
-            body : JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-            })
-        })
-            .then((response) => response.json())
-            .then((res) => {
-
-                if(res.success === true) {
-                    AsyncStorage.setItem('user', res.user);
-                    this.props.navigation.navigate('Profile', {name: 'Ági'});
-                }
-                else {
-                    alert(res.message);
-                }
-
-            })
-            .done();
-
+        if(this.state.password === '123' && this.state.email === 'vm@vm.com') {
+            //this.props.navigation.navigate('Profile', {name: 'Ági'});
+            this.props.navigation.navigate('HomeScreen');
+        }
+        else {
+            alert("The email or password you entered is incorrect.")
+        }
     }
 
 }

@@ -27,7 +27,8 @@ export default class RegisterFull extends Component {
 
     async onRegisterPressed(){
         try {
-            let response = await fetch('http://192.168.150.158:8080/regUser', {
+            //let response = await fetch('http://192.168.150.158:8080/regUser', {
+            let response = await fetch('http://192.168.1.22:8080/regUser', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -102,7 +103,7 @@ export default class RegisterFull extends Component {
                     </View>
                     <View style={styles.registerContent}>
                         <Text style={styles.registerText}>Already have an account?</Text>
-                        <TouchableOpacity onPress={() => navigate('LoginFull')}>
+                        <TouchableOpacity onPress={() => navigate('Login')}>
                             <Text style={styles.loginButton}> Sign in</Text>
                         </TouchableOpacity>
                     </View>
