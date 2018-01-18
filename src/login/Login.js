@@ -14,10 +14,10 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        /*this.state = {
             email: '',
             password: '',
-        }
+        }*/
     }
 
     render() {
@@ -33,7 +33,7 @@ export default class Login extends Component {
                                    placeholderTextColor="#ffffff"
                                    selectionColor="#ffffff"
                                    keyboardType="email-address"
-                                   onChangeText={ (email) => this.setState({email})}
+                        //           onChangeText={ (email) => this.setState({email})}
                                    //value={this.state.email}
                         />
                         <TextInput style={styles.inputBox}
@@ -42,7 +42,7 @@ export default class Login extends Component {
                                    secureTextEntry={true}
                                    placeholderTextColor = "#ffffff"
                                    selectionColor="#ffffff"
-                                   onChangeText={ (password) => this.setState({password})}
+                        //           onChangeText={ (password) => this.setState({password})}
                                    //value={this.state.password}
                         />
                         <TouchableOpacity
@@ -64,12 +64,12 @@ export default class Login extends Component {
     }
 
     login = () => {
-        if(this.state.password === '123' && this.state.email === 'vm@vm.com') {
+        //if(this.state.password === '123' && this.state.email === 'vm@vm.com') {
             this.props.navigation.navigate('HomeScreen');
-        }
-        else {
-            alert("The email or password you entered is incorrect.")
-        }
+        //}
+        //else {
+        //    alert("The email or password you entered is incorrect.")
+        //}
     }
 
 }

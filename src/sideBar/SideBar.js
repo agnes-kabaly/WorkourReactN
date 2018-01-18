@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image } from "react-native";
-import { Container, Content, Text, List, ListItem, Left, Right, Body, Button } from "native-base";
-import { StyleSheet } from "react-native";
+import { Container, Content, Text, List, ListItem } from "native-base";
+import { StyleSheet, View } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const routes = ["Home", "Profile", "AddDays", "ChooseDay", "ShowCalendar"];
@@ -18,86 +18,33 @@ export default class SideBar extends React.Component {
                     <Image
                         style={styles.logoPicture}
                         source={require('../assets/myW.png')}
+                        resizeMode="cover"
                     />
                     <List style={{backgroundColor: '#455a64'}}>
-                        <ListItem style={{backgroundColor: '#455a64', height: 70}}>
-                            <Left>
-                                <Icon name='home' size={32} padding={10}/>
-                            </Left>
-                            <Body>
-                                <Button
-                                    transparent
-                                    onPress={() => this.props.navigation.navigate("Home")}>
-                                    <Text style={{color: '#ffffff', fontWeight:'bold'}}>Home</Text>
-                                </Button>
-                            </Body>
-                            <Right>
 
-                            </Right>
+                        <ListItem style={styles.itemDesign} onPress={() => this.props.navigation.navigate("Home")}>
+                            <Icon name='home' size={32} style={{width:32}}/>
+                            <Text style={styles.textStyle}>Home</Text>
                         </ListItem>
 
-                        <ListItem>
-                            <Left>
-                                <Icon name='user' size={26}/>
-                            </Left>
-                            <Body>
-                            <Button
-                                transparent
-                                onPress={() => this.props.navigation.navigate("Profile")}>
-                                <Text>Profile</Text>
-                            </Button>
-                            </Body>
-                            <Right>
-
-                            </Right>
+                        <ListItem style={styles.itemDesign} onPress={() => this.props.navigation.navigate("Profile")}>
+                            <Icon name='user-circle-o' size={32} style={{width:32}}/>
+                            <Text style={styles.textStyle}>Profile</Text>
                         </ListItem>
 
-                        <ListItem>
-                            <Left>
-                                <Icon name='calendar-plus-o' size={26}/>
-                            </Left>
-                            <Body>
-                            <Button
-                                transparent
-                                onPress={() => this.props.navigation.navigate("AddDays")}>
-                                <Text>Add Days</Text>
-                            </Button>
-                            </Body>
-                            <Right>
-
-                            </Right>
+                        <ListItem style={styles.itemDesign} onPress={() => this.props.navigation.navigate("AddDays")}>
+                            <Icon name='calendar-plus-o' size={32} style={{width:32}}/>
+                            <Text style={styles.textStyle}>Add Days</Text>
                         </ListItem>
 
-                        <ListItem>
-                            <Left>
-                                <Icon name='calendar' size={26}/>
-                            </Left>
-                            <Body>
-                            <Button
-                                transparent
-                                onPress={() => this.props.navigation.navigate("ChooseDay")}>
-                                <Text>Choose Day</Text>
-                            </Button>
-                            </Body>
-                            <Right>
-
-                            </Right>
+                        <ListItem style={styles.itemDesign} onPress={() => this.props.navigation.navigate("ChooseDay")}>
+                            <Icon name='calendar' size={32} style={{width:32}}/>
+                            <Text style={styles.textStyle}>Choose Day</Text>
                         </ListItem>
 
-                        <ListItem>
-                            <Left>
-                                <Icon name='calendar-check-o' size={26}/>
-                            </Left>
-                            <Body>
-                            <Button
-                                transparent
-                                onPress={() => this.props.navigation.navigate("ShowCalendar")}>
-                                <Text>Show Calendar</Text>
-                            </Button>
-                            </Body>
-                            <Right>
-
-                            </Right>
+                        <ListItem style={styles.itemDesign} onPress={() => this.props.navigation.navigate("ShowCalendar")}>
+                            <Icon name='calendar-check-o' size={32} style={{width:32}}/>
+                            <Text style={styles.textStyle}>Show Calendar</Text>
                         </ListItem>
 
                     </List>
@@ -115,11 +62,21 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
     },
     logoPicture: {
-        width: 80,
-        height: 80,
-        paddingHorizontal: 130,
-        paddingVertical: 10,
-       // alignSelf: 'stretch',
+        flex: 1,
+        width: 160,
+        height: 160,
+        alignSelf: 'center',
         position: 'absolute',
     },
-});
+    itemDesign: {
+        backgroundColor: '#455a64',
+        height: 60,
+    },
+    textStyle: {
+        flex: 1,
+        color: '#ffffff',
+        textAlign: 'left',
+        paddingLeft: 26,
+        fontSize: 18,
+    }
+})
