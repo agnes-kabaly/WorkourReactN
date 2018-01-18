@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Expo from "expo";
-//import HomeScreen from "./src/homeScreen/index.js";
-import StackNav from "./src/welcome/index";
-//import HomeScreen from "./src/homeScreen/index";
-
+import WelcomeScreen from "./src/welcome/index";
 
 export default class AwesomeProject extends Component {
     constructor() {
@@ -24,29 +21,6 @@ export default class AwesomeProject extends Component {
         if (!this.state.isReady) {
             return <Expo.AppLoading />;
         }
-        //return <HomeScreen />;
-        //return <WelcomeScreen />;
-        return (<StackNav/>);
+        return (<WelcomeScreen/>);
     }
 }
-
-/*const StackNav = StackNavigator({
-    WelcomeScreen: {
-        screen: WelcomeScreen,
-        navigationOptions: {
-            header: null,
-        }
-    },
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            header: null,
-        }
-    },
-    HomeScreen: {
-        screen: HomeScreen,
-        navigationOptions: {
-            header: null,
-        }
-    },
-});*/

@@ -1,7 +1,7 @@
 import React from "react";
 import {Container, Header, Title, Left, Icon, Right, Button, Body, Content, Text} from "native-base";
 import Logo from "../components/Logo";
-import HomeScreenRouter from "./index.js";
+//import HomeScreenRouter from "./index.js";
 
 export default class HomeScreen extends React.Component {
     render() {

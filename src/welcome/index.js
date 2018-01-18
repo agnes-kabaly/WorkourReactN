@@ -1,28 +1,22 @@
 import React from "react";
 import { StackNavigator } from "react-navigation";
-import Login from "../login/Login";
+import Login from "../login/index";
 import WelcomeScreen from "./WelcomeScreen";
-import HomeScreen from "../homeScreen/index";
 
-const StackNav = StackNavigator({
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            header: null,
-        }
-    },
+const WelcomeScreenStackRouter = StackNavigator({
     WelcomeScreen: {
         screen: WelcomeScreen,
         navigationOptions: {
             header: null,
         }
     },
-    HomeScreen: {
-        screen: HomeScreen,
+    Login: {
+        screen: Login,
         navigationOptions: {
             header: null,
         }
     },
+
 });
 
-export default StackNav;
+export default WelcomeScreenStackRouter;

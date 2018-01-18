@@ -66,7 +66,6 @@ export default class Login extends Component {
 
     login = () => {
         if(this.state.password === '123' && this.state.email === 'vm@vm.com') {
-            //this.props.navigation.navigate('Profile', {name: 'Ági'});
             this.props.navigation.navigate('HomeScreen');
         }
         else {

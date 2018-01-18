@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
+import { Alert } from "react-native";
 
 export default class ProfileScreen extends React.Component {
     render() {
@@ -8,6 +9,7 @@ export default class ProfileScreen extends React.Component {
                 <Text style={styles.text}>Welcome on your profile</Text>
                     <Button
                         title = "Profile ok. :)"
+                        onPress={() => Alert.alert("It's ok.")}
                     ></Button>
             </View>
         );
