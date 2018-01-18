@@ -6,7 +6,6 @@ import {
     TextInput,
     TouchableOpacity,
     KeyboardAvoidingView,
-    AsyncStorage,
 } from 'react-native';
 import Logo from "../components/Logo";
 
