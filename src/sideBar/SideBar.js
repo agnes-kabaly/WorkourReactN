@@ -1,10 +1,7 @@
 import React from 'react';
-import { Image } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { Container, Content, Text, List, ListItem } from "native-base";
-import { StyleSheet, View } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const routes = ["Home", "Profile", "AddDays", "ChooseDay", "ShowCalendar"];
 
 export default class SideBar extends React.Component {
     render() {
@@ -79,4 +76,4 @@ const styles = StyleSheet.create({
         paddingLeft: 26,
         fontSize: 18,
     }
-})
+});
