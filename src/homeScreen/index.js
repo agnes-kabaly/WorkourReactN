@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import HomeScreen from "./HomeScreen.js";
 import SideBar from "../sideBar/SideBar";
 import { DrawerNavigator } from "react-navigation";
-import ProfileScreen from "../profile/ProfileScreen";
+import ProfileTabNavigator from "../profile/index";
 import AddDays from "../workouts/AddDays";
 import ChooseDay from "../workouts/ChooseDay";
 import ShowCalendar from "../calendar/ShowCalendar";
@@ -10,7 +10,7 @@ import ShowCalendar from "../calendar/ShowCalendar";
 const HomeScreenRouter = DrawerNavigator(
     {
         Home: { screen: HomeScreen },
-        Profile: { screen: ProfileScreen },
+        Profile: { screen: ProfileTabNavigator },
         AddDays: { screen: AddDays },
         ChooseDay: { screen: ChooseDay },
         ShowCalendar: { screen: ShowCalendar }
