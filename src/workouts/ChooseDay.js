@@ -1,5 +1,7 @@
 import React from "react";
-import { Container, Body, Content, Header, Left, Right, Icon, Title, Input, Item, Label, Button, Text } from "native-base";
+import { Container, Content, Header, Right, Title, Input, Item, Label, Button, Text } from "native-base";
+import Icon from 'react-native-vector-icons/Entypo';
+import { StyleSheet, View } from "react-native";
 
 
 export default class ChooseDay extends React.Component {
@@ -10,31 +12,56 @@ export default class ChooseDay extends React.Component {
 
         return (
             <Container>
-                <Header>
-                    <Left>
+                <Header style={styles.headerContainer}>
                         <Button
                             transparent
                             onPress={() => this.props.navigation.navigate("DrawerOpen")}>
-                            <Icon name="menu" />
+                            <Icon name="menu" size={38} style={styles.iconStyle} />
                         </Button>
-                    </Left>
-                    <Body>
-                    <Title>Choose Day</Title>
-                    </Body>
+                    <Title style={{fontSize: 26}}>CHOOSE DAY</Title>
                     <Right />
                 </Header>
-                <Content padder>
-                    <Item floatingLabel style={{ marginTop: 20 }}>
-                        <Label>Choose Day with unless input</Label>
-                        <Input />
-                    </Item>
-                    <Button rounded danger
-                            style={{ marginTop: 20, alignSelf: "center" }}
-                            onPress={() => navigate("Profile")}>
-                        <Text>Goto Profile</Text>
-                    </Button>
-                </Content>
+                <View style={styles.container}>
+                    <Content padder>
+                        <Item floatingLabel style={{ marginTop: 20 }}>
+                            <Label>Choose Day with unless input</Label>
+                            <Input />
+                        </Item>
+                        <Button rounded
+                                style={styles.button}
+                                onPress={() => navigate("Profile")}>
+                            <Text>Goto Profile</Text>
+                        </Button>
+                    </Content>
+                </View>
             </Container>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#e6b800',
+    },
+    text: {
+        color: '#1c313a',
+    },
+    iconStyle: {
+        color: '#ffffff',
+        padding: 3,
+    },
+    headerContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        backgroundColor: "#36454f",
+        alignItems:"center",
+        height: 66,
+    },
+    button: {
+        backgroundColor: '#1c313a',
+        marginTop: 20,
+        alignSelf: "center"
+    }
+});
