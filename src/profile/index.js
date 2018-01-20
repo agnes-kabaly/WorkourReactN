@@ -6,6 +6,7 @@ import { TabNavigator } from "react-navigation";
 import { Footer, FooterTab, Text, Button } from "native-base";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ProfileScreen from "./ProfileScreen";
+import { StyleSheet } from "react-native";
 
 export default ProfileTabNavigator = TabNavigator(
     {
@@ -20,29 +21,29 @@ export default ProfileTabNavigator = TabNavigator(
             return (
                 <Footer>
                     <FooterTab>
-                        <Button
+                        <Button style={styles.buttonStyle}
                             vertical
                             active={props.navigationState.index === 0}
                             onPress={() => props.navigation.navigate("EditProfile")}
                         >
-                            <Icon name="pencil" />
-                            <Text>Edit Profile</Text>
+                            <Icon name="pencil" size={19} />
+                            <Text style={styles.textStyle}>Edit Profile</Text>
                         </Button>
-                        <Button
+                        <Button style={styles.buttonStyle}
                             vertical
                             active={props.navigationState.index === 1}
                             onPress={() => props.navigation.navigate("ShowCalendar")}
                         >
-                            <Icon name="calendar-check-o" />
-                            <Text>Show Calendar</Text>
+                            <Icon name="calendar-check-o" size={19} />
+                            <Text style={styles.textStyle}>Calendar</Text>
                         </Button>
-                        <Button
+                        <Button style={styles.buttonStyle}
                             vertical
                             active={props.navigationState.index === 2}
                             onPress={() => props.navigation.navigate("ChooseDay")}
                         >
-                            <Icon name="calendar"/>
-                            <Text>Choose Day</Text>
+                            <Icon name="calendar" size={19} />
+                            <Text style={styles.textStyle}>Choose Day</Text>
                         </Button>
                     </FooterTab>
                 </Footer>
@@ -50,3 +51,14 @@ export default ProfileTabNavigator = TabNavigator(
         }
     }
 );
+
+const styles = StyleSheet.create({
+    textStyle: {
+        color: "#000000",
+        fontWeight: 'bold'
+    },
+    buttonStyle: {
+        backgroundColor: '#DAA520'
+    }
+
+});

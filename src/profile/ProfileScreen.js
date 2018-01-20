@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, Image } from 'react-native';
 import { Header, Title, Right, Button, Text, Content, Container } from "native-base";
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -21,7 +21,12 @@ export default class ProfileScreen extends React.Component {
                 </Header>
                 <View style={styles.container}>
                     <Content padder>
-                        <Text style={styles.text}>Welcome on your profile</Text>
+                        <Text style={styles.text}>Welcome on your profile.</Text>
+
+                        <Image
+                            source={require("../assets/profile.png")}
+                        />
+                        <Text>Choose profile picture. - will.</Text>
                         <Button rounded
                             style={styles.button}
                             onPress={() => Alert.alert("It's ok.")}>
