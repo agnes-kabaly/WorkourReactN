@@ -8,8 +8,11 @@ import {
     KeyboardAvoidingView,
     AsyncStorage,
     Button,
+    Alert
 } from 'react-native';
 import Logo from '../components/Logo';
+import bcrypt from 'react-native-bcrypt';
+import isaac from "isaac";
 
 export default class RegisterFull extends Component {
 
@@ -17,7 +20,7 @@ export default class RegisterFull extends Component {
         super(props);
 
         this.state = {
-            username: "",
+            userName: "",
             email: "",
             password: "",
             password_confirmation: "",
@@ -26,15 +29,34 @@ export default class RegisterFull extends Component {
     }
 
     async onRegisterPressed(){
+
+        bcrypt.setRandomFallback((len) => {
+            Uint8Array.prototype.map = Array.prototype.map;
+            const buf = new Uint8Array(len);
+            return buf.map(() => Math.floor(isaac.random() * 256));
+        });
+
+        const salt = bcrypt.genSaltSync(4);
+        const hash = bcrypt.hashSync(this.state.email, salt);
+        //const hash = bcrypt.hashSync("proba", salt);
+        console.log("hash: " + hash + " salt: " + salt);
+
+        Alert.alert(hash.toString());
+
+        this.state.password = hash;
+
+        console.log(bcrypt.compareSync("proba", "$2a$04$.LpsHNBKPo5QVGYKxQ3DnON7rQhFeUEEjqtHhKnX5dBvAiPhptK5u"));
+
         try {
-            let response = await fetch('http://192.168.150.158:8080/regUser', {
+            //let response = await fetch('http://192.168.150.158:8080/regUser', {
+            let response = await fetch('http://192.168.0.152:8080/regUser', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                        username: this.state.username,
+                        userName: this.state.userName,
                         email: this.state.email,
                         password: this.state.password,
                 })
@@ -50,7 +72,8 @@ export default class RegisterFull extends Component {
             }
 
         } catch(errors) {
-            console.log("catch errors: " + errors);
+            Alert.alert(errors);
+            //console.log("catch errors: " + errors);
         }
 
     }
@@ -70,7 +93,7 @@ export default class RegisterFull extends Component {
                                    placeholder="Name"
                                    placeholderTextColor = "#ffffff"
                                    selectionColor="#ffffff"
-                                   onChangeText={(username) => this.setState({username})}
+                                   onChangeText={(userName) => this.setState({userName})}
                         />
                         <TextInput style={styles.inputBox}
                                    underlineColorAndroid='rgba(0,0,0,0)'

@@ -3,13 +3,13 @@ import { StyleSheet, View, Text, Button, TextInput, TouchableOpacity, KeyboardAv
 
 export default class AddDays extends React.Component {
 
-    constructor(props) {
+    /*constructor(props) {
         super(props);
 
         this.state = {
             dayName: "",
         }
-    }
+    }*/
 
     render () {
         return (
