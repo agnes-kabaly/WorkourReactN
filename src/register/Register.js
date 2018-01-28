@@ -41,15 +41,19 @@ export default class RegisterFull extends Component {
         //const hash = bcrypt.hashSync("proba", salt);
         console.log("hash: " + hash + " salt: " + salt);
 
-        Alert.alert(hash.toString());
+        //Alert.alert(hash.toString());
 
         this.state.password = hash;
 
         console.log(bcrypt.compareSync("proba", "$2a$04$.LpsHNBKPo5QVGYKxQ3DnON7rQhFeUEEjqtHhKnX5dBvAiPhptK5u"));
 
         try {
+            // cc:
             //let response = await fetch('http://192.168.150.158:8080/regUser', {
-            let response = await fetch('http://192.168.0.152:8080/regUser', {
+            // home:
+            //let response = await fetch('http://192.168.0.152:8080/regUser', {
+            // tap:
+            let response = await fetch('http://192.168.1.22:8080/regUser', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -66,14 +70,16 @@ export default class RegisterFull extends Component {
 
             if(response.status >= 200 && response.status < 300) {
                 console.log("res success is: " + res);
+                Alert.alert("Hello There!", res);
+
             } else {
                 errors = res;
                 throw errors;
             }
 
         } catch(errors) {
-            Alert.alert(errors);
-            //console.log("catch errors: " + errors);
+            console.log("catch errors: " + errors);
+            Alert.alert("Oops...", errors);
         }
 
     }
