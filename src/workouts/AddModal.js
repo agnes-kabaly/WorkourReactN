@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { AppRegistry, FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight, Dimensions, TextInput } from 'react-native';
+import { AppRegistry, FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight, Dimensions, TextInput, KeyboardAvoidingView } from 'react-native';
 import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
 
@@ -8,6 +8,13 @@ var screen = Dimensions.get('window');
 export default class AddModal extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            workoutName: "",
+            weight: "",
+            workoutSet: "",
+            rep: "",
+        }
     }
 
     showAddModal = () => {
@@ -16,17 +23,55 @@ export default class AddModal extends Component {
 
     render() {
         return(
-            <Modal
-                ref={"myModal"}
-                style={styles.modalStyle}
-                position='center'
-                backdrop={true}
-                onClosed={() => {
-                    Alert.alert("Meghívódik ha a modal bezárt.");
-                }}
-            >
-                <Text>New Exercise information:</Text>
-            </Modal>
+            <KeyboardAvoidingView>
+                <Modal
+                    ref={"myModal"}
+                    style={styles.modalStyle}
+                    position='center'
+                    backdrop={true}
+                    onClosed={() => {
+                        Alert.alert("Meghívódik ha a modal bezárt.");
+                    }}
+                >
+                    <Text style={styles.modalText}>New Exercise:</Text>
+                        <TextInput
+                            style={styles.inputStyle}
+                            placeholder="Name"
+                            value={this.state.workoutName}
+                            onChangeText={ (text) => this.setState({workoutName: text})}
+                        />
+                        <TextInput
+                            style={styles.inputStyle}
+                            placeholder="Weight"
+                            value={this.state.weight}
+                            onChangeText={ (text) => this.setState({weight: text})}
+                        />
+                        <TextInput
+                            style={styles.inputStyle}
+                            placeholder="Set"
+                            value={this.state.workoutSet}
+                            onChangeText={ (text) => this.setState({workoutSet: text})}
+                        />
+                        <TextInput
+                            style={styles.inputStyle}
+                            placeholder="Repeat"
+                            value={this.state.rep}
+                            onChangeText={ (text) => this.setState({rep: text})}
+                        />
+                    <Button style={styles.button}
+                        containerStyle={{
+                            padding: 8,
+                            marginLeft: 70,
+                            marginRight: 70,
+                            height: 40,
+                            borderRadius: 6,
+                            backgroundColor: 'mediumseagreen',
+                        }}
+                    >
+                        Save
+                    </Button>
+                </Modal>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -37,6 +82,24 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         shadowRadius: 10,
         width: screen.width - 80,
-        height: 300,
-    }
+        height: 340,
+    },
+    modalText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 16,
+    },
+    inputStyle: {
+        height: 40,
+        borderBottomColor: 'grey',
+        marginLeft: 30,
+        marginRight: 30,
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    button: {
+        fontSize: 18,
+        color: 'white',
+    },
 });
