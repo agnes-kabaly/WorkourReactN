@@ -6,7 +6,9 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     Alert,
-    AsyncStorage
+    Text,
+    AsyncStorage,
+    TouchableHighlight
 } from 'react-native';
 import {
     Container,
@@ -18,11 +20,11 @@ import {
     Item,
     Label,
     Button,
-    Text,
     Footer,
     FooterTab
 } from "native-base";
 import Icon from 'react-native-vector-icons/Entypo';
+import AddModal from "./AddModal";
 
 export default class AddDays extends React.Component {
 
@@ -32,7 +34,12 @@ export default class AddDays extends React.Component {
         this.state = {
             dayName: "",
             errors: "",
-        }
+        };
+        this._onPressAdd = this._onPressAdd.bind(this);
+    }
+
+    _onPressAdd() {
+        this.refs.addModal.showAddModal();
     }
 
     async onSavePressed() {
@@ -89,22 +96,24 @@ export default class AddDays extends React.Component {
                                    value={this.state.dayName}
                                    onChangeText={(dayName) => this.setState({dayName})}
                         />
-                        <Button rounded
-                                style={styles.addButton}
-                                onPress={() => navigate("Profile")}>
-                            <Text>Add exercises</Text>
-                        </Button>
+                    <TouchableHighlight style={styles.addButton} onPress={this._onPressAdd}>
+                        <Text style={styles.addText}>Add Exercises</Text>
+                    </TouchableHighlight>
                     </KeyboardAvoidingView>
                 </View>
+
+                <AddModal ref={'addModal'}>
+
+                </AddModal>
+
                 <Footer>
                     <FooterTab style={styles.footerStyle}>
-                        <TouchableOpacity style={styles.button} onPress={this.onSavePressed().bind(this)}>
-                            <Text style={styles.buttonText}>Save New Day</Text>
+                        <TouchableOpacity style={styles.button} onPress={this.onSavePressed.bind(this)}>
+                           <Text style={styles.buttonText}>Save New Day</Text>
                         </TouchableOpacity>
                     </FooterTab>
                 </Footer>
             </Container>
-
         )
     }
 }
@@ -164,7 +173,16 @@ const styles = StyleSheet.create({
     },
     addButton: {
         backgroundColor: '#1c313a',
-        alignSelf: "center"
+        alignSelf: "center",
+        borderRadius: 17,
+        padding: 8,
+        borderWidth: 3,
+        borderColor:'#4CAF50',
+    },
+    addText: {
+        fontSize: 16,
+        color: '#ffffff',
+        fontWeight: 'bold',
     },
     footerStyle: {
         backgroundColor: '#DAA520',
