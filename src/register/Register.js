@@ -30,6 +30,17 @@ export default class RegisterFull extends Component {
 
     async onRegisterPressed(){
 
+        if (this.state.userName.length == 0 ||
+            this.state.email.length == 0 ||
+            !this.state.email.contains('@') ||
+            !this.state.email.contains('.com') ||
+            this.state.email.indexOf('@') == 0 ||
+            this.state.password.length == 0 ||
+            this.state.password_confirmation.length == 0) {
+            Alert.alert("You must fill every field!");
+            return;
+        }
+
         bcrypt.setRandomFallback((len) => {
             Uint8Array.prototype.map = Array.prototype.map;
             const buf = new Uint8Array(len);

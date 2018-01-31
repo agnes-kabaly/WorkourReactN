@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
+    Alert,
     Text,
     View,
     TextInput,
@@ -14,10 +15,10 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        /*this.state = {
+        this.state = {
             email: '',
             password: '',
-        }*/
+        }
     }
 
     render() {
@@ -33,8 +34,8 @@ export default class Login extends Component {
                                    placeholderTextColor="#ffffff"
                                    selectionColor="#ffffff"
                                    keyboardType="email-address"
-                        //           onChangeText={ (email) => this.setState({email})}
-                                   //value={this.state.email}
+                                   onChangeText={ (email) => this.setState({email})}
+                                   value={this.state.email}
                         />
                         <TextInput style={styles.inputBox}
                                    underlineColorAndroid="transparent"
@@ -42,8 +43,8 @@ export default class Login extends Component {
                                    secureTextEntry={true}
                                    placeholderTextColor = "#ffffff"
                                    selectionColor="#ffffff"
-                        //           onChangeText={ (password) => this.setState({password})}
-                                   //value={this.state.password}
+                                   onChangeText={ (password) => this.setState({password})}
+                                   value={this.state.password}
                         />
                         <TouchableOpacity
                             style={styles.button}
@@ -64,6 +65,15 @@ export default class Login extends Component {
     }
 
     login = () => {
+
+        /*if (this.state.email.length == 0 ||
+            !this.state.email.contains('@') ||
+            !this.state.email.contains('.com') ||
+            this.state.email.indexOf('@') == 0 ||
+            this.state.password.length == 0) {
+            Alert.alert("You must fill every field!");
+            return;
+        }*/
         //if(this.state.password === '123' && this.state.email === 'vm@vm.com') {
             this.props.navigation.navigate('HomeScreen');
         //}
