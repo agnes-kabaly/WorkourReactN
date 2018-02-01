@@ -8,6 +8,7 @@ import {
     Alert,
     Text,
     AsyncStorage,
+    FlatList,
     TouchableHighlight
 } from 'react-native';
 import {
@@ -25,6 +26,8 @@ import {
 } from "native-base";
 import Icon from 'react-native-vector-icons/Entypo';
 import AddModal from "./AddModal";
+import flatListData from '../data/flatListData';
+import FlatListItem from './FlatListItem';
 
 export default class AddDays extends React.Component {
 
@@ -34,6 +37,8 @@ export default class AddDays extends React.Component {
         this.state = {
             dayName: "",
             errors: "",
+            activeRowKey: null,
+            newExercises: [],
         };
         this._onPressAdd = this._onPressAdd.bind(this);
     }
@@ -69,6 +74,14 @@ export default class AddDays extends React.Component {
             Alert.alert("Oops...", errors);
         }
     }
+
+    renderSeparator = () => {
+        return(
+            <View
+                style={styles.separatorStyle}
+            />
+        );
+    };
 
     render () {
 
@@ -106,6 +119,21 @@ export default class AddDays extends React.Component {
 
                 </AddModal>
 
+                <View style={styles.flatContainer}>
+                    <FlatList
+                        data={flatListData}
+                        ItemSeparatorComponent={this.renderSeparator}
+                        renderItem={({item, index}) => {
+                            //console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);
+                            return(
+                                <FlatListItem item={item} index={index}>
+
+                                </FlatListItem>);
+                        }}
+                    >
+                    </FlatList>
+                </View>
+
                 <Footer>
                     <FooterTab style={styles.footerStyle}>
                         <TouchableOpacity style={styles.button} onPress={this.onSavePressed.bind(this)}>
@@ -135,8 +163,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     inputBox: {
-        width: 300,
         height: 40,
+        width: 300,
         backgroundColor: '#455a64',
         borderRadius: 16,
         paddingHorizontal: 16,
@@ -177,7 +205,7 @@ const styles = StyleSheet.create({
         borderRadius: 17,
         padding: 8,
         borderWidth: 3,
-        borderColor:'#4CAF50',
+        borderColor:'black',
     },
     addText: {
         fontSize: 16,
@@ -188,5 +216,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#DAA520',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    flatContainer: {
+        flex: 2,
+        paddingHorizontal: 15,
+        backgroundColor: '#e6b800',
+    },
+    separatorStyle: {
+        height: 7,
+        width: "86%",
+        backgroundColor: '#e6b800',
+        marginLeft: "14%",
+    },
 });

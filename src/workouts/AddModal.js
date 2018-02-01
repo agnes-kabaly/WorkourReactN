@@ -14,6 +14,7 @@ export default class AddModal extends Component {
             weight: "",
             workoutSet: "",
             rep: "",
+            data: [],
         }
     }
 
@@ -74,7 +75,13 @@ export default class AddModal extends Component {
                                 Alert.alert("You must enter into every field.");
                                 return;
                             }
-
+                        const newExercise = {
+                            name: this.state.workoutName,
+                            weight: this.state.weight,
+                            workoutSet: this.state.workoutSet,
+                            repeat: this.state.rep,
+                        };
+                            this.state.data.push(newExercise);
                         }}
                 >
                     Save
