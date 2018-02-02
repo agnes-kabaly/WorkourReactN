@@ -7,6 +7,7 @@ import {
     KeyboardAvoidingView,
     Alert,
     Text,
+    Image,
     AsyncStorage,
     FlatList,
     TouchableHighlight
@@ -37,7 +38,7 @@ export default class AddDays extends React.Component {
         this.state = {
             dayName: "",
             errors: "",
-            activeRowKey: null,
+            deletedRowKey: null,
             newExercises: [],
         };
         this._onPressAdd = this._onPressAdd.bind(this);
@@ -83,6 +84,15 @@ export default class AddDays extends React.Component {
         );
     };
 
+    refreshFlatList = (deletedKey) => {
+        console.log(flatListData.valueOf().length);
+        this.setState((prevState) => {
+            return {
+                deletedRowKey: deletedKey
+            };
+        });
+    };
+
     render () {
 
         const { navigate } = this.props.navigation;
@@ -109,9 +119,15 @@ export default class AddDays extends React.Component {
                                    value={this.state.dayName}
                                    onChangeText={(dayName) => this.setState({dayName})}
                         />
-                    <TouchableHighlight style={styles.addButton} onPress={this._onPressAdd}>
-                        <Text style={styles.addText}>Add Exercises</Text>
-                    </TouchableHighlight>
+                        <TouchableOpacity onPress={this._onPressAdd}
+                                          underlayColor="rgba(0, 0, 0, 0)"
+                                          activeOpacity={(this.props.activeOpacity) ? this.props.activeOpacity : 0.5}>
+                            <Image
+                                style={{width: 60, height: 60}}
+                                source={require('../assets/plus3.png')}
+                            >
+                            </Image>
+                        </TouchableOpacity>
                     </KeyboardAvoidingView>
                 </View>
 
@@ -126,7 +142,7 @@ export default class AddDays extends React.Component {
                         renderItem={({item, index}) => {
                             //console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);
                             return(
-                                <FlatListItem item={item} index={index}>
+                                <FlatListItem item={item} index={index} parentFlatList={this}>
 
                                 </FlatListItem>);
                         }}
@@ -198,19 +214,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#36454f",
         alignItems:"center",
         height: 66,
-    },
-    addButton: {
-        backgroundColor: '#1c313a',
-        alignSelf: "center",
-        borderRadius: 17,
-        padding: 8,
-        borderWidth: 3,
-        borderColor:'black',
-    },
-    addText: {
-        fontSize: 16,
-        color: '#ffffff',
-        fontWeight: 'bold',
     },
     footerStyle: {
         backgroundColor: '#DAA520',

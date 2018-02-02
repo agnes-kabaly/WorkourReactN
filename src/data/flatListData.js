@@ -32,6 +32,27 @@ var flatListData = [
         "workoutSet": "8 set",
         "repeat": "proba r"
     },
+    {
+        "key": "valami06",
+        "name": "Második próba67",
+        "weight": "20 súly",
+        "workoutSet": "s 3",
+        "repeat": "második próba"
+    },
+    {
+        "key": "valami07",
+        "name": "PróbaGyak 018",
+        "weight": "próba súly",
+        "workoutSet": "proba s",
+        "repeat": "p8 rep"
+    },
+    {
+        "key": "valami2028",
+        "name": "Próba Gy019",
+        "weight": "próba kg",
+        "workoutSet": "1-3 set",
+        "repeat": "proba rep"
+    },
 ];
 
 module.exports = flatListData;

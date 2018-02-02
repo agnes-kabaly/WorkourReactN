@@ -29,9 +29,9 @@ export default class AddModal extends Component {
                 style={styles.modalStyle}
                 position='center'
                 backdrop={true}
-                onClosed={() => {
+                /*onClosed={() => {
                     Alert.alert("Meghívódik ha a modal bezárt.");
-                }}
+                }}*/
             >
                 <Text style={styles.modalText}>New Exercise:</Text>
                     <TextInput

@@ -9,6 +9,14 @@ import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
 
 export default class FlatListItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            activeRowKey: null,
+        };
+    }
+
     render() {
         const swipeSettings = {
             autoClose: true,
@@ -24,11 +32,14 @@ export default class FlatListItem extends React.Component {
             right: [
                 {
                     onPress: () => {
+                        const deletingRow = this.state.activeRowKey;
                         Alert.alert('Alert', 'Are you sure you want to delete?',
                             [
                                 {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                                 {text: 'Yes', onPress: () => {
                                     flatListData.splice(this.props.index, 1);
+                                    this.props.parentFlatList.refreshFlatList(deletingRow);
+                                    //if (flatListData.valueOf().length == 0) {}
                                 }},
                             ],
                             {cancelable: true}
