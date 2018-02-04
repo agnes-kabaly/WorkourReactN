@@ -19,7 +19,7 @@ export default class EditModal extends Component {
     }
 
     showEditModal = (editingExercise, flatlistItem) => {
-        console.log(`editingExercise= ${JSON.stringify(editingExercise)}`);
+        //console.log(`editingExercise= ${JSON.stringify(editingExercise)}`);
         this.setState({
             key: editingExercise.key,
             workoutName: editingExercise.name,
@@ -97,6 +97,8 @@ export default class EditModal extends Component {
                             flatListData[foundIndex].weight = this.state.weight;
                             flatListData[foundIndex].workoutSet = this.state.workoutSet;
                             flatListData[foundIndex].repeat = this.state.rep;
+
+                            this.state.flatlistItem.refreshFlatListItem();
                             this.refs.myModal.close();
                         }}
                 >

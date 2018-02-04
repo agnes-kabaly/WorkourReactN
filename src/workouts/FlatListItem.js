@@ -14,8 +14,17 @@ export default class FlatListItem extends Component {
 
         this.state = {
             activeRowKey: null,
+            numberOfRefresh: 0,
         };
     }
+
+    refreshFlatListItem = () => {
+        this.setState((prevState) => {
+            return {
+                numberOfRefresh: prevState.numberOfRefresh + 1
+            };
+        });
+    };
 
     render() {
         const swipeSettings = {
