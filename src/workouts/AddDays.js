@@ -126,8 +126,8 @@ export default class AddDays extends React.Component {
                                           underlayColor="rgba(0, 0, 0, 0)"
                                           activeOpacity={(this.props.activeOpacity) ? this.props.activeOpacity : 0.5}>
                             <Image
-                                style={{width: 60, height: 60}}
-                                source={require('../assets/plus3.png')}
+                                style={{width: 60, height: 60, borderColor: 'black', borderWidth:2, borderRadius: 25}}
+                                source={require('../assets/001.png')}
                             >
                             </Image>
                         </TouchableOpacity>
