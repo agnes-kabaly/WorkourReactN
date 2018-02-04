@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {
     StyleSheet,
     View,
@@ -8,7 +8,7 @@ import {
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
 
-export default class FlatListItem extends React.Component {
+export default class FlatListItem extends Component {
     constructor(props) {
         super(props);
 
@@ -21,8 +21,7 @@ export default class FlatListItem extends React.Component {
         const swipeSettings = {
             autoClose: true,
             onClose: (secId, rowId, direction) => {
-                this.setState({activeRowKey: null});
-                if (this.state.activeRowKey != null) {
+                    if (this.state.activeRowKey != null) {
                     this.setState({activeRowKey: null});
                 }
             },
@@ -39,7 +38,6 @@ export default class FlatListItem extends React.Component {
                                 {text: 'Yes', onPress: () => {
                                     flatListData.splice(this.props.index, 1);
                                     this.props.parentFlatList.refreshFlatList(deletingRow);
-                                    //if (flatListData.valueOf().length == 0) {}
                                 }},
                             ],
                             {cancelable: true}
@@ -49,10 +47,10 @@ export default class FlatListItem extends React.Component {
                 }
             ],
             rowId: this.props.index,
-            sectionID: 1,
+            sectionId: 1,
         };
         return(
-            <Swipeout {...swipeSettings}>
+            <Swipeout {...swipeSettings} backgroundColor='transparent'>
                 <View style={{
                     flex: 1,
                     height: 60,
@@ -64,7 +62,6 @@ export default class FlatListItem extends React.Component {
                     borderColor:'black',
                     backgroundColor: this.props.index % 2 == 0 ? '#232E33': '#35454D'
                 }}>
-                    <Text style={styles.flatListItem}>{this.props.item.index}</Text>
                     <Text style={[styles.flatListItem, {fontWeight: 'bold'}]}>{this.props.item.name}</Text>
                     <Text style={styles.flatListItem}>{this.props.item.weight}</Text>
                     <Text style={styles.flatListItem}>{this.props.item.workoutSet}</Text>

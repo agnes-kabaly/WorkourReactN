@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { AppRegistry, FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight, Dimensions, TextInput } from 'react-native';
+import { AppRegistry, FlatList, StyleSheet, Text, View, Alert, Platform, TouchableHighlight, Dimensions, TextInput } from 'react-native';
 import Modal from 'react-native-modalbox';
 import Button from 'react-native-button';
+import flatListData from '../data/flatListData';
 
 var screen = Dimensions.get('window');
 
@@ -14,7 +15,6 @@ export default class AddModal extends Component {
             weight: "",
             workoutSet: "",
             rep: "",
-            data: [],
         }
     }
 
@@ -22,41 +22,46 @@ export default class AddModal extends Component {
         this.refs.myModal.open();
     };
 
+    generateKey = (numberOfCharacters) => {
+        return require('random-string')({length: numberOfCharacters});
+    };
+
     render() {
+
         return(
             <Modal
                 ref={"myModal"}
                 style={styles.modalStyle}
                 position='center'
                 backdrop={true}
-                /*onClosed={() => {
-                    Alert.alert("Meghívódik ha a modal bezárt.");
-                }}*/
+                onClosed={() => {
+                    //Alert.alert("Meghívódik ha a modal bezárt.");
+                }}
             >
                 <Text style={styles.modalText}>New Exercise:</Text>
                     <TextInput
                         style={styles.inputStyle}
+                        onChangeText={ (text) => this.setState({workoutName: text})}
                         placeholder="Name"
                         value={this.state.workoutName}
-                        onChangeText={ (text) => this.setState({workoutName: text})}
                     />
                     <TextInput
                         style={styles.inputStyle}
+                        onChangeText={ (text) => this.setState({weight: text})}
                         placeholder="Weight"
                         value={this.state.weight}
-                        onChangeText={ (text) => this.setState({weight: text})}
                     />
                     <TextInput
                         style={styles.inputStyle}
+                        onChangeText={ (text) => this.setState({workoutSet: text})}
                         placeholder="Set"
                         value={this.state.workoutSet}
-                        onChangeText={ (text) => this.setState({workoutSet: text})}
                     />
                     <TextInput
                         style={styles.inputStyle}
+                        onChangeText={ (text) => this.setState({rep: text})}
                         placeholder="Repeat"
                         value={this.state.rep}
-                        onChangeText={ (text) => this.setState({rep: text})}
                     />
                 <Button style={styles.button}
                     containerStyle={{
@@ -75,13 +80,17 @@ export default class AddModal extends Component {
                                 Alert.alert("You must enter into every field.");
                                 return;
                             }
-                        const newExercise = {
-                            name: this.state.workoutName,
-                            weight: this.state.weight,
-                            workoutSet: this.state.workoutSet,
-                            repeat: this.state.rep,
-                        };
-                            this.state.data.push(newExercise);
+                            const newKey = this.generateKey(24);
+                            const newExercise = {
+                                key: newKey,
+                                name: this.state.workoutName,
+                                weight: this.state.weight,
+                                workoutSet: this.state.workoutSet,
+                                repeat: this.state.rep,
+                            };
+                                this.refs.myModal.close();
+                                flatListData.push(newExercise);
+                                this.props.parentFlatList.refreshFlatList(newKey);
                         }}
                 >
                     Save

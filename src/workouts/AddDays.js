@@ -39,13 +39,8 @@ export default class AddDays extends React.Component {
             dayName: "",
             errors: "",
             deletedRowKey: null,
-            newExercises: [],
         };
         this._onPressAdd = this._onPressAdd.bind(this);
-    }
-
-    _onPressAdd() {
-        this.refs.addModal.showAddModal();
     }
 
     async onSavePressed() {
@@ -76,21 +71,31 @@ export default class AddDays extends React.Component {
         }
     }
 
+    refreshFlatList = (activeKey) => {
+        console.log(flatListData.valueOf().length);
+        this.setState((prevState) => {
+            return {
+                deletedRowKey: activeKey
+            };
+        });
+        if (flatListData.valueOf().length == 0) {
+            console.log("nulla");
+        }
+        //this.refs.flatList.scrollToEnd();
+        this.refs.flatList.scrollToOffset({ offset: 0, animated: true });
+        //scrollToIndex({animated: false, index: itemIndex, viewPosition: 0});
+    };
+
+    _onPressAdd() {
+        this.refs.addModal.showAddModal();
+    }
+
     renderSeparator = () => {
         return(
             <View
                 style={styles.separatorStyle}
             />
         );
-    };
-
-    refreshFlatList = (deletedKey) => {
-        console.log(flatListData.valueOf().length);
-        this.setState((prevState) => {
-            return {
-                deletedRowKey: deletedKey
-            };
-        });
     };
 
     render () {
@@ -111,6 +116,7 @@ export default class AddDays extends React.Component {
                 <View style={styles.container}>
                     <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
                         <Text style={styles.addTitle}> - ADD DAY - </Text>
+
                         <TextInput style={styles.inputBox}
                                    underlineColorAndroid="rgba(0,0,0,0)"
                                    placeholder="Day Name"
@@ -131,12 +137,10 @@ export default class AddDays extends React.Component {
                     </KeyboardAvoidingView>
                 </View>
 
-                <AddModal ref={'addModal'}>
-
-                </AddModal>
-
                 <View style={styles.flatContainer}>
                     <FlatList
+                        //inverted
+                        ref={"flatList"}
                         data={flatListData}
                         ItemSeparatorComponent={this.renderSeparator}
                         renderItem={({item, index}) => {
@@ -149,6 +153,10 @@ export default class AddDays extends React.Component {
                     >
                     </FlatList>
                 </View>
+
+                <AddModal ref={'addModal'} parentFlatList={this}>
+
+                </AddModal>
 
                 <Footer>
                     <FooterTab style={styles.footerStyle}>
