@@ -4,6 +4,47 @@ import { Header, Title, Right, Button, Text, Content, Container } from "native-b
 import Icon from 'react-native-vector-icons/Entypo';
 
 export default class ProfileScreen extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user: "",
+            userId: 1,
+            days: "",
+        }
+    }
+
+    componentDidMount = () => {
+        fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+            .then((response) => response.json())
+            .then((responseJson) => {
+                //console.log(responseJson);
+
+                this.setState({
+                    user: responseJson
+                });
+
+                this.setState({days: this.state.user.days});
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    _renderDays() {
+        let dayNameText = [];
+        let countDays = 0;
+        for (var dayIndex = 0; dayIndex < this.state.days.length; dayIndex++) {
+            countDays++;
+            let eachDayName = this.state.days[dayIndex].dayName;
+            dayNameText.push(
+                <Text key={countDays}>{eachDayName}</Text>);
+        }
+        return dayNameText;
+    }
+
     render() {
 
         const { navigate } = this.props.navigation;
@@ -32,6 +73,12 @@ export default class ProfileScreen extends React.Component {
                             onPress={() => Alert.alert("It's ok.")}>
                             <Text>Profile ok</Text>
                         </Button>
+                        <Text>{this.state.user.userName}</Text>
+                        <Text>{this.state.user.email}</Text>
+                        <Text>{this.state.user.regDate}</Text>
+                        <View>
+                            {this._renderDays()}
+                        </View>
                     </Content>
                 </View>
             </Container>
