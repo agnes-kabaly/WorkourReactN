@@ -29,6 +29,14 @@ export default class FlatListItem extends Component {
                 this.setState({activeRowKey: this.props.item.key});
             },
             right: [
+
+                {
+                    onPress: () => {
+                        this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index], this);
+                    },
+                    text: 'Edit', type: 'primary'
+                },
+
                 {
                     onPress: () => {
                         const deletingRow = this.state.activeRowKey;

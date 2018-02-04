@@ -29,6 +29,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import AddModal from "./AddModal";
 import flatListData from '../data/flatListData';
 import FlatListItem from './FlatListItem';
+import EditModal from './EditModal';
 
 export default class AddDays extends React.Component {
 
@@ -78,12 +79,8 @@ export default class AddDays extends React.Component {
                 deletedRowKey: activeKey
             };
         });
-        if (flatListData.valueOf().length == 0) {
-            console.log("nulla");
-        }
         //this.refs.flatList.scrollToEnd();
         this.refs.flatList.scrollToOffset({ offset: 0, animated: true });
-        //scrollToIndex({animated: false, index: itemIndex, viewPosition: 0});
     };
 
     _onPressAdd() {
@@ -139,9 +136,9 @@ export default class AddDays extends React.Component {
 
                 <View style={styles.flatContainer}>
                     <FlatList
-                        //inverted
                         ref={"flatList"}
                         data={flatListData}
+                        style={{flex:1}}
                         ItemSeparatorComponent={this.renderSeparator}
                         renderItem={({item, index}) => {
                             //console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);
@@ -157,6 +154,10 @@ export default class AddDays extends React.Component {
                 <AddModal ref={'addModal'} parentFlatList={this}>
 
                 </AddModal>
+
+                <EditModal ref={'editModal'} parentFlatList={this}>
+
+                </EditModal>
 
                 <Footer>
                     <FooterTab style={styles.footerStyle}>
