@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Alert, Image } from 'react-native';
+import { View, StyleSheet, Alert, Image, ListView } from 'react-native';
 import { Header, Title, Right, Button, Text, Content, Container } from "native-base";
 import Icon from 'react-native-vector-icons/Entypo';
+
+var standardDataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 
 export default class ProfileScreen extends React.Component {
 
@@ -12,21 +15,23 @@ export default class ProfileScreen extends React.Component {
             user: "",
             userId: 1,
             days: "",
+            dayNames: standardDataSource,
         }
     }
 
     componentDidMount = () => {
-        fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        fetch('http://192.168.1.22:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
             .then((response) => response.json())
             .then((responseJson) => {
-                //console.log(responseJson);
+                console.log(responseJson);
 
                 this.setState({
                     user: responseJson
                 });
 
                 this.setState({days: this.state.user.days});
-
+                this.setState({dayNames: standardDataSource.cloneWithRows(this.state.user.days)});
             })
             .catch((error) => {
                 console.error(error);
@@ -79,6 +84,15 @@ export default class ProfileScreen extends React.Component {
                         <View>
                             {this._renderDays()}
                         </View>
+
+                       <ListView
+                            dataSource={this.state.dayNames}
+                            renderRow={
+                                (rowData) => <Text>Name: {rowData.dayName}</Text>
+                            }
+                        >
+                        </ListView>
+
                     </Content>
                 </View>
             </Container>
