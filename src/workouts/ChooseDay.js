@@ -1,10 +1,38 @@
 import React from "react";
 import { Container, Content, Header, Right, Title, Input, Item, Label, Button, Text } from "native-base";
 import Icon from 'react-native-vector-icons/Entypo';
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ListView, TouchableOpacity } from "react-native";
 
+var standardDataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ChooseDay extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user: "",
+            userId: 1,
+            dayNames: standardDataSource,
+        }
+    }
+
+    componentDidMount = () => {
+        fetch('http://192.168.1.22:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // console.log(responseJson);
+
+                this.setState({
+                    user: responseJson,
+                });
+
+                this.setState({dayNames: standardDataSource.cloneWithRows(this.state.user.days)});
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     render() {
 
@@ -32,6 +60,19 @@ export default class ChooseDay extends React.Component {
                                 onPress={() => navigate("Profile")}>
                             <Text>Goto Profile</Text>
                         </Button>
+                        <Text>Your days, unlsee text:</Text>
+
+                        <ListView
+                            dataSource={this.state.dayNames}
+                            renderRow={
+                                (rowData) =>
+                                    <TouchableOpacity>
+                                        <Text style={styles.dayButton}>{rowData.dayName}</Text>
+                                    </TouchableOpacity>
+                            }
+                        >
+                        </ListView>
+
                     </Content>
                 </View>
             </Container>
@@ -63,5 +104,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#1c313a',
         marginTop: 20,
         alignSelf: "center"
+    },
+    dayButton: {
+
     }
 });
