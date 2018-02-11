@@ -38,6 +38,7 @@ export default class AddDays extends React.Component {
 
         this.state = {
             dayName: "",
+            //color: "",
             errors: "",
             deletedRowKey: null,
         };

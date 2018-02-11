@@ -11,8 +11,6 @@ import {
     Alert
 } from 'react-native';
 import Logo from '../components/Logo';
-import bcrypt from 'react-native-bcrypt';
-import isaac from "isaac";
 
 export default class RegisterFull extends Component {
 
@@ -41,21 +39,10 @@ export default class RegisterFull extends Component {
             return;
         }
 
-        bcrypt.setRandomFallback((len) => {
-            Uint8Array.prototype.map = Array.prototype.map;
-            const buf = new Uint8Array(len);
-            return buf.map(() => Math.floor(isaac.random() * 256));
-        });
+        var base64 = require('base-64');
+        this.state.password = base64.encode(this.state.password);
 
-        const salt = bcrypt.genSaltSync(4);
-        const hash = bcrypt.hashSync(this.state.email, salt);
-        //const hash = bcrypt.hashSync("proba", salt);
-        console.log("hash: " + hash + " salt: " + salt);
-        //Alert.alert(hash.toString());
-
-        this.state.password = hash;
-
-        //console.log(bcrypt.compareSync("proba", "$2a$04$.LpsHNBKPo5QVGYKxQ3DnON7rQhFeUEEjqtHhKnX5dBvAiPhptK5u"));
+        console.log(this.state.password);
 
         try {
             // cc:

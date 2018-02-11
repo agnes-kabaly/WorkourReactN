@@ -18,7 +18,10 @@ export default class ChooseDay extends React.Component {
     }
 
     componentDidMount = () => {
+        //tap:
         fetch('http://192.168.1.22:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //cc:
+        //fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
             .then((response) => response.json())
             .then((responseJson) => {
                 // console.log(responseJson);
@@ -106,6 +109,11 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     dayButton: {
+        padding: 8,
+        fontSize: 26,
+        borderRadius: 10,
+        borderWidth: 2,
+        height: 60,
 
     }
 });
