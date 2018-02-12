@@ -30,6 +30,7 @@ import AddModal from "./AddModal";
 import flatListData from '../data/flatListData';
 import FlatListItem from './FlatListItem';
 import EditModal from './EditModal';
+import ColorPickerModal from "./ColorPickerModal";
 
 export default class AddDays extends React.Component {
 
@@ -38,16 +39,33 @@ export default class AddDays extends React.Component {
 
         this.state = {
             dayName: "",
-            //color: "",
+            color: "",
             errors: "",
             deletedRowKey: null,
         };
+
         this._onPressAdd = this._onPressAdd.bind(this);
+
+        this._onPressColor = this._onPressColor.bind(this);
     }
 
     async onSavePressed() {
+
+        console.log("colooor: " + this.state.color);
+
+        if (this.state.dayName.length == 0
+            //||
+            //this.state.color.length == 0
+        ) {
+            Alert.alert("You must enter into every field.");
+            return;
+        }
+
         try {
-            let response = await fetch('http://192.168.150.158:8080/addNewDay', {
+            //cc:
+            //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
+            //tap:
+            let response = await fetch('http://192.168.1.22:8080/addNewDay', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -88,6 +106,10 @@ export default class AddDays extends React.Component {
         this.refs.addModal.showAddModal();
     }
 
+    _onPressColor() {
+        this.refs.colorPickerModal.showColorPickerModal();
+    }
+
     renderSeparator = () => {
         return(
             <View
@@ -113,25 +135,32 @@ export default class AddDays extends React.Component {
                 </Header>
                 <View style={styles.container}>
                     <KeyboardAvoidingView behavior="padding" style={styles.wrapper}>
-                        <Text style={styles.addTitle}> - ADD DAY - </Text>
+                        <View>
+                            <TextInput style={styles.inputBox}
+                                       underlineColorAndroid="rgba(0,0,0,0)"
+                                       placeholder="Day Name"
+                                       placeholderTextColor="#ffffff"
+                                       selectionColor="#ffffff"
+                                       value={this.state.dayName}
+                                       onChangeText={(dayName) => this.setState({dayName})}
+                            />
 
-                        <TextInput style={styles.inputBox}
-                                   underlineColorAndroid="rgba(0,0,0,0)"
-                                   placeholder="Day Name"
-                                   placeholderTextColor="#ffffff"
-                                   selectionColor="#ffffff"
-                                   value={this.state.dayName}
-                                   onChangeText={(dayName) => this.setState({dayName})}
-                        />
-                        <TouchableOpacity onPress={this._onPressAdd}
-                                          underlayColor="rgba(0, 0, 0, 0)"
-                                          activeOpacity={(this.props.activeOpacity) ? this.props.activeOpacity : 0.5}>
-                            <Image
-                                style={{width: 60, height: 60, borderColor: 'black', borderWidth:2, borderRadius: 25}}
-                                source={require('../assets/001.png')}
+                            <TouchableOpacity style={styles.colorButton}
+                                        onPress={this._onPressColor}
                             >
-                            </Image>
-                        </TouchableOpacity>
+                                <Text style={styles.text}>+ color</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={this._onPressAdd}
+                                              underlayColor="rgba(0, 0, 0, 0)"
+                                              activeOpacity={(this.props.activeOpacity) ? this.props.activeOpacity : 0.5}>
+                                <Image
+                                    style={styles.addExImage}
+                                    source={require('../assets/001.png')}
+                                >
+                                </Image>
+                            </TouchableOpacity>
+                        </View>
                     </KeyboardAvoidingView>
                 </View>
 
@@ -159,6 +188,10 @@ export default class AddDays extends React.Component {
                 <EditModal ref={'editModal'} parentFlatList={this}>
 
                 </EditModal>
+
+                <ColorPickerModal ref={'colorPickerModal'} color={this.state.color}>
+
+                </ColorPickerModal>
 
                 <Footer>
                     <FooterTab style={styles.footerStyle}>
@@ -211,8 +244,19 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         textAlign: 'center',
     },
+    colorButton: {
+        width: 90,
+        height: 40,
+        backgroundColor: '#1c313a',
+        borderRadius: 16,
+        alignItems: 'center',
+    },
     text: {
-        color: '#1c313a',
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight:'bold',
+        //textAlign: 'center',
+        padding: 8,
     },
     iconStyle: {
         color: '#ffffff',
@@ -241,4 +285,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#e6b800',
         marginLeft: "14%",
     },
+    addExImage: {
+        width: 60,
+        height: 60,
+        borderColor: 'black',
+        borderWidth:2,
+        borderRadius: 25,
+        alignSelf: 'center',
+    }
 });
