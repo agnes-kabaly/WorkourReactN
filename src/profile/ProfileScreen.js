@@ -21,9 +21,9 @@ export default class ProfileScreen extends React.Component {
         //home:
         //fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
         //cc:
-        //fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
         //tap:
-        fetch('http://192.168.1.22:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //fetch('http://192.168.1.22:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
             .then((response) => response.json())
             .then((responseJson) => {
                 //console.log(responseJson);

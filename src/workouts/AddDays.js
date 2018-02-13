@@ -49,23 +49,27 @@ export default class AddDays extends React.Component {
         this._onPressColor = this._onPressColor.bind(this);
     }
 
+    colorHandler = (colorFromModal) => {
+        this.setState({
+            color: colorFromModal
+        })
+    };
+
     async onSavePressed() {
 
-        console.log("colooor: " + this.state.color);
+        //console.log("colooor: " + this.state.color);
 
-        if (this.state.dayName.length == 0
-            //||
-            //this.state.color.length == 0
-        ) {
+        if (this.state.dayName.length == 0 ||
+            this.state.color.length == 0) {
             Alert.alert("You must enter into every field.");
             return;
         }
 
         try {
             //cc:
-            //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
+            let response = await fetch('http://192.168.150.158:8080/addNewDay', {
             //tap:
-            let response = await fetch('http://192.168.1.22:8080/addNewDay', {
+            //let response = await fetch('http://192.168.1.22:8080/addNewDay', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -73,6 +77,7 @@ export default class AddDays extends React.Component {
                 },
                 body: JSON.stringify({
                     dayName: this.state.dayName,
+                    color: this.state.color,
                 })
             });
 
@@ -189,7 +194,7 @@ export default class AddDays extends React.Component {
 
                 </EditModal>
 
-                <ColorPickerModal ref={'colorPickerModal'} color={this.state.color}>
+                <ColorPickerModal ref={'colorPickerModal'} callback={this.colorHandler}>
 
                 </ColorPickerModal>
 

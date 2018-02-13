@@ -3,7 +3,6 @@ import { Container, Content, Header, Right, Title, Input, Item, Label, Button, T
 import Icon from 'react-native-vector-icons/Entypo';
 import { StyleSheet, View } from "react-native";
 
-
 export default class ShowCalendar extends React.Component {
     render() {
 

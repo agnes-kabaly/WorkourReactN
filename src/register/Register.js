@@ -46,11 +46,11 @@ export default class RegisterFull extends Component {
 
         try {
             // cc:
-            //let response = await fetch('http://192.168.150.158:8080/regUser', {
+            let response = await fetch('http://192.168.150.158:8080/regUser', {
             // home:
             //let response = await fetch('http://192.168.0.152:8080/regUser', {
             // tap:
-            let response = await fetch('http://192.168.1.22:8080/regUser', {
+            //let response = await fetch('http://192.168.1.22:8080/regUser', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

@@ -15,9 +15,10 @@ export default class ColorPickerModal extends Component {
     }
 
     onColorChange(color) {
-        this.setState({ color })
-        console.log(color)
-        console.log(fromHsv( color ) )
+        //console.log(color)
+        this.setState({
+            color: fromHsv( color ),
+        })
     }
 
     showColorPickerModal = () => {
@@ -57,7 +58,8 @@ export default class ColorPickerModal extends Component {
                             backgroundColor: 'mediumseagreen',
                         }}
                         onPress={() => {
-                            this.props.color = this.state.color,
+                            //console.log(this.state.color);
+                            this.props.callback(this.state.color);
                             this.refs.myModal.close();
                         }}
                 >
