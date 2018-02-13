@@ -4,7 +4,7 @@ import SideBar from "../sideBar/SideBar";
 import { DrawerNavigator } from "react-navigation";
 import ProfileTabNavigator from "../profile/index";
 import AddDays from "../workouts/AddDays";
-import ChooseDay from "../workouts/ChooseDay";
+import ChooseDay from "../chooseDay/index";
 import ShowCalendar from "../calendar/ShowCalendar";
 
 const HomeScreenRouter = DrawerNavigator(

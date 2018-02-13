@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EditProfile from "./EditProfile";
 import ShowCalendar from "../calendar/ShowCalendar";
-import ChooseDay from "../workouts/ChooseDay";
+import ChooseDay from "../chooseDay/ChooseDay";
 import { TabNavigator } from "react-navigation";
 import { Footer, FooterTab, Text, Button } from "native-base";
 import Icon from 'react-native-vector-icons/FontAwesome';

@@ -76,6 +76,7 @@ export default class ChooseDay extends React.Component {
                                             height: 60,
                                             marginTop: 6,
                                         }}
+                                        onPress={() => this.props.navigation.navigate("Day")}
                                     >
                                         <Text style={styles.dayNameText}>{rowData.dayName}</Text>
                                     </TouchableOpacity>
