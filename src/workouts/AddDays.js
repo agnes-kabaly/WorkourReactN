@@ -260,7 +260,6 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontSize: 16,
         fontWeight:'bold',
-        //textAlign: 'center',
         padding: 8,
     },
     iconStyle: {

@@ -1,9 +1,10 @@
 import React from "react";
-import { Container, Content, Header, Right, Title, Input, Item, Label, Button, Text } from "native-base";
+import { Container, Content, Header, Right, Title, Label, Button, Text } from "native-base";
 import Icon from 'react-native-vector-icons/Entypo';
-import { StyleSheet, View, ListView, TouchableOpacity } from "react-native";
+import { StyleSheet, View, ListView, TouchableOpacity, Dimensions } from "react-native";
 
 var standardDataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+var screen = Dimensions.get('window');
 
 export default class ChooseDay extends React.Component {
 
@@ -54,23 +55,29 @@ export default class ChooseDay extends React.Component {
                 </Header>
                 <View style={styles.container}>
                     <Content padder>
-                        <Item floatingLabel style={{ marginTop: 20 }}>
-                            <Label>Choose Day with unless input</Label>
-                            <Input />
-                        </Item>
                         <Button rounded
                                 style={styles.button}
                                 onPress={() => navigate("Profile")}>
                             <Text>Goto Profile</Text>
                         </Button>
-                        <Text>Your days, unlsee text:</Text>
+                        <Text>Your days:</Text>
 
                         <ListView
                             dataSource={this.state.dayNames}
                             renderRow={
                                 (rowData) =>
-                                    <TouchableOpacity>
-                                        <Text style={styles.dayButton}>{rowData.dayName}</Text>
+                                    <TouchableOpacity
+                                        style={{
+                                            backgroundColor: rowData.color,
+                                            justifyContent: 'center',
+                                            width: screen.width - 30,
+                                            borderRadius: 10,
+                                            borderWidth: 2,
+                                            height: 60,
+                                            marginTop: 6,
+                                        }}
+                                    >
+                                        <Text style={styles.dayNameText}>{rowData.dayName}</Text>
                                     </TouchableOpacity>
                             }
                         >
@@ -108,12 +115,10 @@ const styles = StyleSheet.create({
         marginTop: 20,
         alignSelf: "center"
     },
-    dayButton: {
+    dayNameText: {
         padding: 8,
         fontSize: 26,
-        borderRadius: 10,
-        borderWidth: 2,
-        height: 60,
-
+        textAlign: 'center',
+        fontWeight: '800',
     }
 });
