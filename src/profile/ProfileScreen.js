@@ -73,10 +73,10 @@ export default class ProfileScreen extends React.Component {
                         <Text>Your days:</Text>
 
                        <ListView
-                            dataSource={this.state.dayNames}
-                            renderRow={
-                                (rowData) => <Text>{rowData.dayName}</Text>
-                            }
+                           dataSource={this.state.dayNames}
+                           renderRow={
+                               (rowData) => <Text>{rowData.dayName}</Text>
+                           }
                         >
                         </ListView>
 

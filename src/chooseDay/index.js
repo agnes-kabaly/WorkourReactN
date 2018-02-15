@@ -3,6 +3,8 @@ import { StackNavigator } from 'react-navigation';
 import ChooseDayScreen from './ChooseDay';
 import Day from '../workouts/Day';
 
+const chooseNavigation = ({navigation}) => (<ChooseDayScreen navigation={navigation}/>);
+
 const chooseDayStackNavigator = StackNavigator({
     ChooseDayScreen: {
         screen: ChooseDayScreen,
@@ -12,9 +14,9 @@ const chooseDayStackNavigator = StackNavigator({
     },
     Day: {
         screen: Day,
-        navigationOptions: {
-            header: null,
-        }
+        navigationOptions: ({navigation}) => ({
+            title: `${navigation.state.params.workoutDay.dayName}`,
+        }),
     },
 });
 

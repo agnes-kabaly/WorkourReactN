@@ -40,6 +40,7 @@ export default class AddDays extends React.Component {
         this.state = {
             dayName: "",
             color: "",
+            userId: 1,
             errors: "",
             deletedRowKey: null,
         };
@@ -76,8 +77,13 @@ export default class AddDays extends React.Component {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    dayName: this.state.dayName,
-                    color: this.state.color,
+                    workoutDay: {
+                        dayName: this.state.dayName,
+                        color: this.state.color
+                    },
+                    userId: {
+                        userId: this.state.userId
+                    }
                 })
             });
 

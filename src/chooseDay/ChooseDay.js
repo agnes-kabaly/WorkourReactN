@@ -60,9 +60,9 @@ export default class ChooseDay extends React.Component {
                                 onPress={() => navigate("Profile")}>
                             <Text>Goto Profile</Text>
                         </Button>
-                        <Text>Your days:</Text>
 
                         <ListView
+                            style={{paddingBottom: 6}}
                             dataSource={this.state.dayNames}
                             renderRow={
                                 (rowData) =>
@@ -76,7 +76,7 @@ export default class ChooseDay extends React.Component {
                                             height: 60,
                                             marginTop: 6,
                                         }}
-                                        onPress={() => this.props.navigation.navigate("Day")}
+                                        onPress={() => this.props.navigation.navigate("Day", {workoutDay: rowData})}
                                     >
                                         <Text style={styles.dayNameText}>{rowData.dayName}</Text>
                                     </TouchableOpacity>
