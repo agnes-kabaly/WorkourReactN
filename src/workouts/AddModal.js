@@ -83,10 +83,10 @@ export default class AddModal extends Component {
                             const newKey = this.generateKey(24);
                             const newExercise = {
                                 key: newKey,
-                                name: this.state.workoutName,
+                                workoutName: this.state.workoutName,
                                 weight: this.state.weight,
                                 workoutSet: this.state.workoutSet,
-                                repeat: this.state.rep,
+                                rep: this.state.rep,
                             };
                                 this.refs.myModal.close();
                                 flatListData.push(newExercise);

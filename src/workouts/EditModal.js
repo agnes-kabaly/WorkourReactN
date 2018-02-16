@@ -22,10 +22,10 @@ export default class EditModal extends Component {
         //console.log(`editingExercise= ${JSON.stringify(editingExercise)}`);
         this.setState({
             key: editingExercise.key,
-            workoutName: editingExercise.name,
+            workoutName: editingExercise.workoutName,
             weight: editingExercise.weight,
             workoutSet: editingExercise.workoutSet,
-            rep: editingExercise.repeat,
+            rep: editingExercise.rep,
             flatlistItem: flatlistItem,
         });
         this.refs.myModal.open();
@@ -93,10 +93,10 @@ export default class EditModal extends Component {
                             if (foundIndex < 0) {
                                 return;
                             }
-                            flatListData[foundIndex].name = this.state.workoutName;
+                            flatListData[foundIndex].workoutName = this.state.workoutName;
                             flatListData[foundIndex].weight = this.state.weight;
                             flatListData[foundIndex].workoutSet = this.state.workoutSet;
-                            flatListData[foundIndex].repeat = this.state.rep;
+                            flatListData[foundIndex].rep = this.state.rep;
 
                             this.state.flatlistItem.refreshFlatListItem();
                             this.refs.myModal.close();

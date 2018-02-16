@@ -79,10 +79,10 @@ export default class FlatListItem extends Component {
                     borderColor:'black',
                     backgroundColor: this.props.index % 2 == 0 ? '#232E33': '#35454D'
                 }}>
-                    <Text style={[styles.flatListItem, {fontWeight: 'bold'}]}>{this.props.item.name}</Text>
+                    <Text style={[styles.flatListItem, {fontWeight: 'bold'}]}>{this.props.item.workoutName}</Text>
                     <Text style={styles.flatListItem}>{this.props.item.weight}</Text>
                     <Text style={styles.flatListItem}>{this.props.item.workoutSet}</Text>
-                    <Text style={styles.flatListItem}>{this.props.item.repeat}</Text>
+                    <Text style={styles.flatListItem}>{this.props.item.rep}</Text>
                 </View>
             </Swipeout>
         )

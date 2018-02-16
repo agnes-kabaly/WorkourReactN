@@ -13,7 +13,7 @@ export default class Day extends React.Component {
                 <Text>Dax oki</Text>
                 <Text>{this.props.navigation.state.params.workoutDay.dayName}</Text>
                 <Text>{this.props.navigation.state.params.workoutDay.color}</Text>
-                <Text>{exerciseList.length}</Text>
+                <Text>{exerciseList.valueOf().length}</Text>
             </View>
         )
     }

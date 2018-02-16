@@ -83,7 +83,10 @@ export default class AddDays extends React.Component {
                     },
                     userId: {
                         userId: this.state.userId
-                    }
+                    },
+                    exercises: {
+                        exercises: flatListData
+                    },
                 })
             });
 
