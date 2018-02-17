@@ -21,9 +21,6 @@ export default class Day extends React.Component {
 
         return(
             <View style={styles.container}>
-                <Text>{this.props.navigation.state.params.workoutDay.dayName}</Text>
-                <Text>{this.props.navigation.state.params.workoutDay.color}</Text>
-                <Text>{exerciseList.valueOf().length}</Text>
                 <View style={styles.flatContainer}>
                     <FlatList
                         ref={"flatList"}
@@ -55,6 +52,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#e6b800',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingTop: 10,
     },
     flatContainer: {
         flex: 2,

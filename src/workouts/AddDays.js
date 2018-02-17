@@ -67,8 +67,10 @@ export default class AddDays extends React.Component {
         }
 
         try {
+            //home:
+            let response = await fetch('http://192.168.0.152:8080/addNewDay', {
             //cc:
-            let response = await fetch('http://192.168.150.158:8080/addNewDay', {
+            //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
             //tap:
             //let response = await fetch('http://192.168.1.22:8080/addNewDay', {
                 method: 'POST',
@@ -103,6 +105,7 @@ export default class AddDays extends React.Component {
             console.log("catch errors: " + errors);
             Alert.alert("Oops...", errors);
         }
+        //flatListData: [];
     }
 
     refreshFlatList = (activeKey) => {

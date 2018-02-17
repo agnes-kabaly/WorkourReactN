@@ -16,6 +16,12 @@ const chooseDayStackNavigator = StackNavigator({
         screen: Day,
         navigationOptions: ({navigation}) => ({
             title: `${navigation.state.params.workoutDay.dayName}`,
+            headerStyle: {
+                backgroundColor: `${navigation.state.params.workoutDay.color}`,
+                flexDirection: 'row',
+                justifyContent: "space-between"
+            },
+            headerTitleStyle: {fontSize: 30},
         }),
     },
 });
