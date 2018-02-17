@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 16,
         shadowRadius: 10,
-        width: screen.width - 80,
+        width: screen.width > 460 ? screen.width - 360 : screen.width - 80,
         height: 340,
         marginBottom: 400,
     },
