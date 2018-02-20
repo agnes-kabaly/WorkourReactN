@@ -62,47 +62,54 @@ export default class AddDays extends React.Component {
             this.state.color.length == 0) {
             Alert.alert("You must enter into every field.");
             return;
-        }
-
-        try {
-            //home:
-            //let response = await fetch('http://192.168.0.152:8080/addNewDay', {
-            //cc:
-            //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
-            //tap:
-            let response = await fetch('http://192.168.1.22:8080/addNewDay', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    workoutDay: {
-                        dayName: this.state.dayName,
-                        color: this.state.color
+        } else {
+            try {
+                //home:
+                //let response = await fetch('http://192.168.0.152:8080/addNewDay', {
+                //cc:
+                //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
+                //tap:
+                let response = await fetch('http://192.168.1.22:8080/addNewDay', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
                     },
-                    userId: {
-                        userId: this.state.userId
-                    },
-                    exercises: {
-                        exercises: flatListData
-                    },
-                })
-            });
+                    body: JSON.stringify({
+                        workoutDay: {
+                            dayName: this.state.dayName,
+                            color: this.state.color
+                        },
+                        userId: {
+                            userId: this.state.userId
+                        },
+                        exercises: {
+                            exercises: flatListData
+                        },
+                    })
+                });
 
-            let res = await response.text();
+                /*for(var i in flatListData){
+                    console.log(i.workoutName);
+                    const deletingRow = i.activeRowKey;
+                    flatListData.refreshFlatList(deletingRow);
+                }*/
 
-            if (response.status >= 200 && response.status < 300) {
-                console.log("save day success: " + res);
-                Alert.alert("Day Saved!", res);
-            } else {
-                errors = res;
-                throw errors;
+                let res = await response.text();
+
+                if (response.status >= 200 && response.status < 300) {
+                    console.log("save day success: " + res);
+                    Alert.alert("Day Saved!", res);
+                } else {
+                    errors = res;
+                    throw errors;
+                }
+            } catch(errors) {
+                console.log("catch errors: " + errors);
+                Alert.alert("Oops...", errors);
             }
-        } catch(errors) {
-            console.log("catch errors: " + errors);
-            Alert.alert("Oops...", errors);
         }
+
     }
 
     refreshFlatList = (activeKey) => {

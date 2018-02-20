@@ -26,6 +26,10 @@ export default class AddModal extends Component {
         return require('random-string')({length: numberOfCharacters});
     };
 
+    /*deleteNameValue = () => {
+        this.setState({workoutName: ""});
+    };*/
+
     render() {
 
         return(
@@ -79,19 +83,20 @@ export default class AddModal extends Component {
                                 this.state.rep.length == 0) {
                                 Alert.alert("You must enter into every field.");
                                 return;
-                            }
-                            const newKey = this.generateKey(24);
-                            const newExercise = {
-                                key: newKey,
-                                workoutName: this.state.workoutName,
-                                weight: this.state.weight,
-                                workoutSet: this.state.workoutSet,
-                                rep: this.state.rep,
-                            };
+                            } else {
+                                const newKey = this.generateKey(24);
+                                const newExercise = {
+                                    key: newKey,
+                                    workoutName: this.state.workoutName,
+                                    weight: this.state.weight,
+                                    workoutSet: this.state.workoutSet,
+                                    rep: this.state.rep,
+                                };
                                 this.refs.myModal.close();
                                 flatListData.push(newExercise);
-                                this.state.workoutName = "";
                                 this.props.parentFlatList.refreshFlatList(newKey);
+                                //this.deleteNameValue();
+                            }
                         }}
                 >
                     Save
@@ -100,6 +105,8 @@ export default class AddModal extends Component {
         );
     }
 }
+
+
 
 const styles = StyleSheet.create({
     modalStyle: {
