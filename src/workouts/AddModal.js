@@ -90,6 +90,7 @@ export default class AddModal extends Component {
                             };
                                 this.refs.myModal.close();
                                 flatListData.push(newExercise);
+                                this.state.workoutName = "";
                                 this.props.parentFlatList.refreshFlatList(newKey);
                         }}
                 >
