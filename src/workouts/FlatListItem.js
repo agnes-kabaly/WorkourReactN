@@ -71,7 +71,7 @@ export default class FlatListItem extends Component {
                 <View style={{
                     flex: 1,
                     height: 60,
-                    flexDirection: 'row',
+                    flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: 10,
@@ -79,10 +79,14 @@ export default class FlatListItem extends Component {
                     borderColor:'black',
                     backgroundColor: this.props.index % 2 == 0 ? '#232E33': '#35454D'
                 }}>
-                    <Text style={[styles.flatListItem, {fontWeight: 'bold'}]}>{this.props.item.workoutName}</Text>
-                    <Text style={styles.flatListItem}>{this.props.item.weight}</Text>
-                    <Text style={styles.flatListItem}>{this.props.item.workoutSet}</Text>
-                    <Text style={styles.flatListItem}>{this.props.item.rep}</Text>
+                    <View>
+                        <Text style={[styles.flatListItem, {fontWeight: 'bold'}]}>{this.props.item.workoutName}</Text>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                        <Text style={styles.flatListItem}>{this.props.item.weight}</Text>
+                        <Text style={styles.flatListItem}>{this.props.item.workoutSet}</Text>
+                        <Text style={styles.flatListItem}>{this.props.item.rep}</Text>
+                    </View>
                 </View>
             </Swipeout>
         )

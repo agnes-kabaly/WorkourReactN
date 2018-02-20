@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
+import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
 import FlatListItem from './FlatListItem';
 import EditModal from './EditModal';
+
+var screen = Dimensions.get('window');
 
 export default class Day extends React.Component {
 
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
     },
     flatContainer: {
         flex: 2,
-        paddingHorizontal: 15,
+        width: screen.width > 460 ? screen.width - 310 : screen.width - 30,
         backgroundColor: '#e6b800',
     },
     separatorStyle: {

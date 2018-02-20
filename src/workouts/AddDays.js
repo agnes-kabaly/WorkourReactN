@@ -58,8 +58,6 @@ export default class AddDays extends React.Component {
 
     async onSavePressed() {
 
-        //console.log("colooor: " + this.state.color);
-
         if (this.state.dayName.length == 0 ||
             this.state.color.length == 0) {
             Alert.alert("You must enter into every field.");
@@ -68,11 +66,11 @@ export default class AddDays extends React.Component {
 
         try {
             //home:
-            let response = await fetch('http://192.168.0.152:8080/addNewDay', {
+            //let response = await fetch('http://192.168.0.152:8080/addNewDay', {
             //cc:
             //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
             //tap:
-            //let response = await fetch('http://192.168.1.22:8080/addNewDay', {
+            let response = await fetch('http://192.168.1.22:8080/addNewDay', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -105,7 +103,6 @@ export default class AddDays extends React.Component {
             console.log("catch errors: " + errors);
             Alert.alert("Oops...", errors);
         }
-        //flatListData: [];
     }
 
     refreshFlatList = (activeKey) => {
