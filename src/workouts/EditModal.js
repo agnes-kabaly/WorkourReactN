@@ -41,7 +41,7 @@ export default class EditModal extends Component {
             <Modal
                 ref={"myModal"}
                 style={styles.modalStyle}
-                position='center'
+                position='top'
                 backdrop={true}
                 onClosed={() => {
                     //Alert.alert("Meghívódik ha a modal bezárt.");
@@ -111,12 +111,11 @@ export default class EditModal extends Component {
 
 const styles = StyleSheet.create({
     modalStyle: {
-        justifyContent: 'center',
         borderRadius: 16,
         shadowRadius: 10,
         width: screen.width > 460 ? screen.width - 360 : screen.width - 80,
         height: 340,
-        marginBottom: 400,
+        marginTop: 80,
     },
     modalText: {
         fontSize: 18,

@@ -22,7 +22,9 @@ export default class ChooseDay extends React.Component {
         //tap:
         //fetch('http://192.168.1.22:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
         //cc:
-        fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //home:
+        fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
             .then((response) => response.json())
             .then((responseJson) => {
                 // console.log(responseJson);
@@ -70,7 +72,7 @@ export default class ChooseDay extends React.Component {
                                         style={{
                                             backgroundColor: rowData.color,
                                             justifyContent: 'center',
-                                            width: screen.width - 30,
+                                            width: screen.width > 460 ? screen.width - 310 : screen.width - 30,
                                             borderRadius: 10,
                                             borderWidth: 2,
                                             height: 60,
