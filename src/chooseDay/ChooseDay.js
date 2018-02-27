@@ -19,12 +19,14 @@ export default class ChooseDay extends React.Component {
     }
 
     componentDidMount = () => {
-        //tap:
-        //fetch('http://192.168.1.22:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
         //cc:
-        //fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
         //home:
-        fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //tap:
+        //fetch('http://192.168.43.162:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //herokuByImi:
+        //fetch('http://enigmatic-mesa-76352.herokuapp.com/getUserById?id=' + this.state.userId, {method: 'GET'})
             .then((response) => response.json())
             .then((responseJson) => {
                 // console.log(responseJson);

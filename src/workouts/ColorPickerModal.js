@@ -44,7 +44,6 @@ export default class ColorPickerModal extends Component {
                         color={this.state.color}
                         onColorChange={this.onColorChange}
                         //onColorSelected={color => Alert.alert(`Color selected: ${color}`)}
-                        //onOldColorSelected={color => Alert.alert(`Old color selected: ${color}`)}
                         style={{flex: 1, height: 200, width: 200}}
                     />
                 </View>
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     modalStyle: {
         justifyContent: 'center',
         shadowRadius: 10,
-        width: screen.width - 80,
+        width: screen.width > 460 ? screen.width - 280 : screen.width - 80,
         height: 340,
         marginBottom: 400,
         backgroundColor: '#212021',

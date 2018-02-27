@@ -64,12 +64,14 @@ export default class AddDays extends React.Component {
             return;
         } else {
             try {
+                //cc:
+                let response = await fetch('http://192.168.150.158:8080/addNewDay', {
                 //home:
                 //let response = await fetch('http://192.168.0.152:8080/addNewDay', {
-                //cc:
-                //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
                 //tap:
-                let response = await fetch('http://192.168.1.22:8080/addNewDay', {
+                //let response = await fetch('http://192.168.43.162:8080/addNewDay', {
+                //herokuByImi:
+                //let response = await fetch('http://enigmatic-mesa-76352.herokuapp.com/addNewDay', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -88,12 +90,6 @@ export default class AddDays extends React.Component {
                         },
                     })
                 });
-
-                /*for(var i in flatListData){
-                    console.log(i.workoutName);
-                    const deletingRow = i.activeRowKey;
-                    flatListData.refreshFlatList(deletingRow);
-                }*/
 
                 let res = await response.text();
 

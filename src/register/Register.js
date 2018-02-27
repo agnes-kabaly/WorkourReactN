@@ -51,6 +51,8 @@ export default class RegisterFull extends Component {
             //let response = await fetch('http://192.168.0.152:8080/regUser', {
             // tap:
             //let response = await fetch('http://192.168.1.22:8080/regUser', {
+            //herokuByImi:
+            //let response = await fetch('http://enigmatic-mesa-76352.herokuapp.com/regUser', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
