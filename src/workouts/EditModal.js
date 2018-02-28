@@ -15,6 +15,7 @@ export default class EditModal extends Component {
             weight: "",
             workoutSet: "",
             rep: "",
+            errors: "",
         }
     }
 
@@ -34,6 +35,64 @@ export default class EditModal extends Component {
     generateKey = (numberOfCharacters) => {
         return require('random-string')({length: numberOfCharacters});
     };
+
+    async onSavePressed() {
+
+        if (this.state.workoutName.length == 0 ||
+            this.state.weight.length == 0 ||
+            this.state.workoutSet.length == 0 ||
+            this.state.rep.length == 0) {
+            Alert.alert("You must enter into every field.");
+            return;
+        }
+
+        var foundIndex = flatListData.findIndex(item => this.state.key == item.key);
+
+        if (foundIndex < 0) {
+            return;
+        }
+
+        flatListData[foundIndex].workoutName = this.state.workoutName;
+        flatListData[foundIndex].weight = this.state.weight;
+        flatListData[foundIndex].workoutSet = this.state.workoutSet;
+        flatListData[foundIndex].rep = this.state.rep;
+
+        this.state.flatlistItem.refreshFlatListItem();
+        this.refs.myModal.close();
+
+        if (this.props.passedVal == true) {
+            try {
+                let response = await fetch('http://192.168.150.158:8080/editExercise', {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        key: this.state.key,
+                        workoutName: this.state.workoutName,
+                        weight: this.state.weight,
+                        workoutSet: this.state.workoutSet,
+                        rep: this.state.rep,
+                    })
+                });
+
+                let res = await response.text();
+
+                if (response.status >= 200 && response.status < 300) {
+                    console.log("edit was success: " + res);
+                    Alert.alert("Exercise modifying OK", res);
+                } else {
+                    errors = res;
+                    throw errors;
+                }
+            } catch (errors) {
+                console.log("catch errors: " + errors);
+                Alert.alert("Oops...", errors);
+            }
+        }
+
+    }
 
     render() {
 
@@ -81,26 +140,7 @@ export default class EditModal extends Component {
                             borderRadius: 6,
                             backgroundColor: 'mediumseagreen',
                         }}
-                        onPress={() => {
-                            if (this.state.workoutName.length == 0 ||
-                                this.state.weight.length == 0 ||
-                                this.state.workoutSet.length == 0 ||
-                                this.state.rep.length == 0) {
-                                Alert.alert("You must enter into every field.");
-                                return;
-                            }
-                            var foundIndex = flatListData.findIndex(item => this.state.key == item.key);
-                            if (foundIndex < 0) {
-                                return;
-                            }
-                            flatListData[foundIndex].workoutName = this.state.workoutName;
-                            flatListData[foundIndex].weight = this.state.weight;
-                            flatListData[foundIndex].workoutSet = this.state.workoutSet;
-                            flatListData[foundIndex].rep = this.state.rep;
-
-                            this.state.flatlistItem.refreshFlatListItem();
-                            this.refs.myModal.close();
-                        }}
+                        onPress={this.onSavePressed.bind(this)}
                 >
                     Save
                 </Button>

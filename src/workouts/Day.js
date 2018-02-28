@@ -2,10 +2,19 @@ import React from 'react';
 import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
 import FlatListItem from './FlatListItem';
 import EditModal from './EditModal';
+import flatListData from '../data/flatListData';
 
 var screen = Dimensions.get('window');
 
 export default class Day extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            realEdit: true,
+        }
+    }
 
     renderSeparator = () => {
         return(
@@ -21,12 +30,21 @@ export default class Day extends React.Component {
 
         var exerciseList = this.props.navigation.state.params.workoutDay.workouts;
 
+        while (flatListData.valueOf().length != 0) {
+            flatListData.pop();
+        }
+
+        for(var workouts in exerciseList) {
+            flatListData.push(exerciseList[workouts]);
+        }
+
         return(
             <View style={styles.container}>
                 <View style={styles.flatContainer}>
                     <FlatList
                         ref={"flatList"}
-                        data={exerciseList}
+                        style={{flex:1}}
+                        data={flatListData}
                         ItemSeparatorComponent={this.renderSeparator}
                         renderItem={({item, index}) => {
                             return (
@@ -39,7 +57,7 @@ export default class Day extends React.Component {
                     </FlatList>
                 </View>
 
-                <EditModal ref={"editModal"} parentFlatList={this}>
+                <EditModal ref={"editModal"} parentFlatList={this} passedVal={this.state.realEdit}>
 
                 </EditModal>
 
