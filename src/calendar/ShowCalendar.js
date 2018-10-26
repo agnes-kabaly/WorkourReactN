@@ -1,7 +1,8 @@
 import React from "react";
-import { Container, Content, Header, Right, Title, Input, Item, Label, Button, Text } from "native-base";
+import { Container, Content, Header, Right, Title, Button, Text } from "native-base";
 import Icon from 'react-native-vector-icons/Entypo';
 import { StyleSheet, View } from "react-native";
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 export default class ShowCalendar extends React.Component {
     render() {
@@ -13,24 +14,29 @@ export default class ShowCalendar extends React.Component {
                 <Header style={styles.headerContainer}>
                         <Button
                             transparent
-                            onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+                            onPress={() => this.props.navigation.openDrawer()}>
                             <Icon name="menu" size={38} style={styles.iconStyle} />
                         </Button>
                     <Title style={{fontSize: 26}}>CALENDAR</Title>
                     <Right />
                 </Header>
                 <View style={styles.container}>
-                    <Content padder>
-                        <Item floatingLabel style={{ marginTop: 20 }}>
-                            <Label>Show Calendar try with unless input</Label>
-                            <Input />
-                        </Item>
+                    <View style={styles.container}>
+                        <Calendar
+                            markedDates={{
+                                '2018-10-28':{selected: true, selectedColor: 'green'},
+                            }}
+
+                        />
+
+                    </View>
+                    <View style={styles.buttonView}>
                         <Button rounded
                                 style={styles.button}
-                                onPress={() => navigate("Profile")}>
+                                onPress={() => navigate("ProfileScreen")}>
                             <Text>Goto Profile</Text>
                         </Button>
-                    </Content>
+                    </View>
                 </View>
             </Container>
         );
@@ -40,8 +46,10 @@ export default class ShowCalendar extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    buttonView: {
         justifyContent: 'center',
-        backgroundColor: '#e6b800',
+        //backgroundColor: '#e6b800',
     },
     text: {
         color: '#1c313a',
@@ -59,7 +67,7 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#1c313a',
-        marginTop: 20,
-        alignSelf: "center"
+        alignSelf: "center",
+        marginBottom: 40,
     }
 });

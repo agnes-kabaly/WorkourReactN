@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import EditProfile from "./EditProfile";
 import ShowCalendar from "../calendar/ShowCalendar";
 import ChooseDay from "../chooseDay/ChooseDay";
-import { TabNavigator } from "react-navigation";
+import { createBottomTabNavigator, BottomTabBar } from "react-navigation-tabs";
 import { Footer, FooterTab, Text, Button } from "native-base";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ProfileScreen from "./ProfileScreen";
 import { StyleSheet } from "react-native";
 
-export default ProfileTabNavigator = TabNavigator(
+export default ProfileTabNavigator = createBottomTabNavigator(
     {
         ProfileScreen: { screen: ProfileScreen},
         EditProfile: { screen: EditProfile },
@@ -18,12 +18,13 @@ export default ProfileTabNavigator = TabNavigator(
     {
         tabBarPosition: "bottom",
         tabBarComponent: props => {
+            //const {navigation, navigationState} = props;
             return (
                 <Footer>
                     <FooterTab>
                         <Button style={styles.buttonStyle}
                             vertical
-                            active={props.navigationState.index === 0}
+                            //active={navigationState.routes[index] === 0}
                             onPress={() => props.navigation.navigate("EditProfile")}
                         >
                             <Icon name="pencil" size={19} />
@@ -31,7 +32,7 @@ export default ProfileTabNavigator = TabNavigator(
                         </Button>
                         <Button style={styles.buttonStyle}
                             vertical
-                            active={props.navigationState.index === 1}
+                            //active={props.navigationState.index === 1}
                             onPress={() => props.navigation.navigate("ShowCalendar")}
                         >
                             <Icon name="calendar-check-o" size={19} />
@@ -39,7 +40,7 @@ export default ProfileTabNavigator = TabNavigator(
                         </Button>
                         <Button style={styles.buttonStyle}
                             vertical
-                            active={props.navigationState.index === 2}
+                            //active={props.navigationState.index === 2}
                             onPress={() => props.navigation.navigate("ChooseDay")}
                         >
                             <Icon name="calendar" size={19} />

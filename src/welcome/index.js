@@ -1,9 +1,9 @@
 import React from "react";
-import { StackNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation";
 import Login from "../login/index";
 import WelcomeScreen from "./WelcomeScreen";
 
-const WelcomeScreenStackRouter = StackNavigator({
+const WelcomeScreenStackRouter = createStackNavigator({
     WelcomeScreen: {
         screen: WelcomeScreen,
         navigationOptions: {
@@ -16,7 +16,6 @@ const WelcomeScreenStackRouter = StackNavigator({
             header: null,
         }
     },
-
 });
 
 export default WelcomeScreenStackRouter;

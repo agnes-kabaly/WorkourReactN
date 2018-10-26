@@ -19,9 +19,9 @@ export default class ProfileScreen extends React.Component {
 
     componentDidMount = () => {
         //cc:
-        fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //fetch('http://192.168.150.158:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
         //home:
-        //fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
         //tap:
         //fetch('http://192.168.43.162:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
         //herokuByImi:
@@ -50,7 +50,7 @@ export default class ProfileScreen extends React.Component {
                 <Header style={styles.headerContainer}>
                         <Button
                             transparent
-                            onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+                            onPress={() => this.props.navigation.openDrawer()}>
                             <Icon name="menu" size={38} style={styles.iconStyle} />
                         </Button>
                     <Title style={{fontSize: 26}}>PROFILE</Title>

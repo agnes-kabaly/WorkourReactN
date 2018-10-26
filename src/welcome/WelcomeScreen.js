@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
-
     enterButton: {
         padding: 8,
         fontSize: 16,

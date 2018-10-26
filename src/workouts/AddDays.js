@@ -14,13 +14,9 @@ import {
 } from 'react-native';
 import {
     Container,
-    Content,
     Header,
     Right,
     Title,
-    Input,
-    Item,
-    Label,
     Button,
     Footer,
     FooterTab
@@ -65,9 +61,9 @@ export default class AddDays extends React.Component {
         } else {
             try {
                 //cc:
-                let response = await fetch('http://192.168.150.158:8080/addNewDay', {
+                //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
                 //home:
-                //let response = await fetch('http://192.168.0.152:8080/addNewDay', {
+                let response = await fetch('http://192.168.0.152:8080/addNewDay', {
                 //tap:
                 //let response = await fetch('http://192.168.43.162:8080/addNewDay', {
                 //herokuByImi:
@@ -109,7 +105,6 @@ export default class AddDays extends React.Component {
     }
 
     refreshFlatList = (activeKey) => {
-        console.log(flatListData.valueOf().length);
         this.setState((prevState) => {
             return {
                 deletedRowKey: activeKey
@@ -144,7 +139,7 @@ export default class AddDays extends React.Component {
                 <Header style={styles.headerContainer}>
                     <Button
                         transparent
-                        onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+                        onPress={() => this.props.navigation.openDrawer()}>
                         <Icon name="menu" size={38} style={styles.iconStyle} />
                     </Button>
                     <Title style={{fontSize: 26}}>ADD DAY</Title>
@@ -184,8 +179,8 @@ export default class AddDays extends React.Component {
                 <View style={styles.flatContainer}>
                     <FlatList
                         ref={"flatList"}
-                        data={flatListData}
                         style={{flex:1}}
+                        data={flatListData}
                         ItemSeparatorComponent={this.renderSeparator}
                         renderItem={({item, index}) => {
                             //console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);

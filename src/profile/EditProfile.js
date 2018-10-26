@@ -14,7 +14,7 @@ export default class EditProfile extends React.Component {
                 <Header style={styles.headerContainer}>
                         <Button
                             transparent
-                            onPress={() => this.props.navigation.navigate("DrawerOpen")}>
+                            onPress={() => this.props.navigation.openDrawer()}>
                             <Icon name="menu" size={38} style={styles.iconStyle} />
                         </Button>
                     <Title style={{fontSize: 26}}>EDIT PROFILE</Title>
@@ -28,7 +28,7 @@ export default class EditProfile extends React.Component {
                         </Item>
                         <Button rounded
                                 style={styles.button}
-                                onPress={() => navigate("Profile")}>
+                                onPress={() => navigate("ProfileScreen")}>
                             <Text>Goto Profile</Text>
                         </Button>
                     </Content>

@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import HomeScreen from "./HomeScreen.js";
 import SideBar from "../sideBar/SideBar";
-import { DrawerNavigator } from "react-navigation";
+import { createDrawerNavigator } from "react-navigation";
 import ProfileTabNavigator from "../profile/index";
 import AddDays from "../workouts/AddDays";
 import ChooseDay from "../chooseDay/index";
 import ShowCalendar from "../calendar/ShowCalendar";
 
-const HomeScreenRouter = DrawerNavigator(
+const HomeScreenRouter = createDrawerNavigator(
     {
         Home: { screen: HomeScreen },
         Profile: { screen: ProfileTabNavigator },

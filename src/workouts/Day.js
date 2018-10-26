@@ -13,6 +13,9 @@ export default class Day extends React.Component {
 
         this.state = {
             realEdit: true,
+            deletedRowKey: null,
+            exerciseList: this.props.navigation.state.params.workoutDay.workouts,
+            deletedExList: [],
         }
     }
 
@@ -24,21 +27,42 @@ export default class Day extends React.Component {
         )
     };
 
-    render(){
+    refreshFlatList = (activeKey) => {
+        this.setState((prevState) => {
+            return {
+                deletedRowKey: activeKey
+            };
+        });
+        this.refs.flatList.scrollToOffset({ offset: 0, animated: true });
+    };
 
-        const { navigate } = this.props.navigation;
+    componentDidMount = () => {
 
-        var exerciseList = this.props.navigation.state.params.workoutDay.workouts;
+        if (this.state.exerciseList.valueOf().length == 0) {
+            while (flatListData.valueOf().length != this.state.exerciseList.valueOf().length) {
+                flatListData.pop();
+            }
+        }
 
         while (flatListData.valueOf().length != 0) {
             flatListData.pop();
         }
 
-        for(var workouts in exerciseList) {
-            flatListData.push(exerciseList[workouts]);
+        this.state.deletedExList.push(this.state.deletedRowKey);
+        for(var workouts in this.state.exerciseList) {
+            for (var deletedIndex in this.state.deletedExList) {
+                if (this.state.exerciseList[workouts].key != this.state.deletedExList[deletedIndex]) {
+                    console.log("Name: " + this.state.exerciseList[workouts].workoutName);
+                    this.refreshFlatList(this.state.exerciseList[workouts].key);
+                    flatListData.push(this.state.exerciseList[workouts]);
+                }
+            }
         }
+    };
 
-        return(
+    render(){
+
+        return (
             <View style={styles.container}>
                 <View style={styles.flatContainer}>
                     <FlatList
@@ -48,8 +72,13 @@ export default class Day extends React.Component {
                         ItemSeparatorComponent={this.renderSeparator}
                         renderItem={({item, index}) => {
                             return (
-                                <FlatListItem item={item} index={index} parentFlatList={this}>
-
+                                <FlatListItem
+                                    item={item}
+                                    index={index}
+                                    //style={{flex:1}}
+                                    parentFlatList={this}
+                                    passedVal={this.state.realEdit}
+                                    passedId={this.props.navigation.state.params.workoutDay.dayId}>
                                 </FlatListItem>
                             )
                         }}

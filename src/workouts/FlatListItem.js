@@ -15,6 +15,7 @@ export default class FlatListItem extends Component {
         this.state = {
             activeRowKey: null,
             numberOfRefresh: 0,
+            errors: "",
         };
     }
 
@@ -26,7 +27,42 @@ export default class FlatListItem extends Component {
         });
     };
 
+    async onDeletePressed() {
+        try {
+            //let response = await fetch('http://192.168.150.158:8080/deleteExercise', {
+            //home:
+            let response = await fetch('http://192.168.0.152:8080/deleteExercise', {
+                method:'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    workoutExerciseKey: {
+                        key: this.props.item.key,
+                    },
+                    dayId : {
+                        dayId: this.props.passedId,
+                    },
+                })
+            });
+            let res = await response.text();
+
+            if (response.status >= 200 && response.status < 300) {
+                console.log("delete was success: " + res);
+                Alert.alert("Exercise delete OK", res);
+            } else {
+                errors = res;
+                throw errors;
+            }
+        } catch (errors) {
+            console.log("catch errors: " + errors);
+            Alert.alert("Oops...", errors);
+        }
+    }
+
     render() {
+
         const swipeSettings = {
             autoClose: true,
             onClose: (secId, rowId, direction) => {
@@ -51,8 +87,11 @@ export default class FlatListItem extends Component {
                         const deletingRow = this.state.activeRowKey;
                         Alert.alert('Alert', 'Are you sure you want to delete?',
                             [
-                                {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                                {text: 'No', onPress: () => console.log('Cancel Pressed' + flatListData), style: 'cancel'},
                                 {text: 'Yes', onPress: () => {
+                                    if (this.props.passedVal == true) {
+                                        this.onDeletePressed();
+                                    }
                                     flatListData.splice(this.props.index, 1);
                                     this.props.parentFlatList.refreshFlatList(deletingRow);
                                 }},

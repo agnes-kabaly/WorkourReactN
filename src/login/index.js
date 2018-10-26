@@ -1,10 +1,10 @@
 import React from "react";
-import { StackNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation";
 import Login from "./Login";
 import HomeScreen from "../homeScreen/index";
 import Register from "../register/Register";
 
-const LoginScreenStackRouter = StackNavigator({
+const LoginScreenStackRouter = createStackNavigator({
     Login: {
         screen: Login,
         navigationOptions: {

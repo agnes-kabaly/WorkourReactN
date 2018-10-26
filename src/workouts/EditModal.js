@@ -62,7 +62,9 @@ export default class EditModal extends Component {
 
         if (this.props.passedVal == true) {
             try {
-                let response = await fetch('http://192.168.150.158:8080/editExercise', {
+                //let response = await fetch('http://192.168.150.158:8080/editExercise', {
+                //home:
+                let response = await fetch('http://192.168.0.152:8080/editExercise', {
                     method: 'PUT',
                     headers: {
                         'Accept': 'application/json',

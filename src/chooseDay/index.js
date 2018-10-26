@@ -1,11 +1,11 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import ChooseDayScreen from './ChooseDay';
 import Day from '../workouts/Day';
 
 const chooseNavigation = ({navigation}) => (<ChooseDayScreen navigation={navigation}/>);
 
-const chooseDayStackNavigator = StackNavigator({
+const chooseDayStackNavigator = createStackNavigator({
     ChooseDayScreen: {
         screen: ChooseDayScreen,
         navigationOptions: {
@@ -18,8 +18,6 @@ const chooseDayStackNavigator = StackNavigator({
             title: `${navigation.state.params.workoutDay.dayName}`,
             headerStyle: {
                 backgroundColor: `${navigation.state.params.workoutDay.color}`,
-                flexDirection: 'row',
-                justifyContent: "space-between"
             },
             headerTitleStyle: {fontSize: 30},
         }),
