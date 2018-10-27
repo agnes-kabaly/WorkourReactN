@@ -21,6 +21,8 @@ export default class ShowCalendar extends React.Component {
         for (var respInd in myResponseJ.calendars) {
             this.state.calendars[respInd] = myResponseJ.calendars[respInd];
         }
+
+        this.generateNewDaysObject();
     }
 
     handleDateMaking(status) {
@@ -75,7 +77,7 @@ export default class ShowCalendar extends React.Component {
 
                 this.createCalendars(responseJson);
 
-                this.generateNewDaysObject();
+                //this.generateNewDaysObject();
 
             })
             .catch((error) => {

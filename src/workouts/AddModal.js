@@ -48,24 +48,28 @@ export default class AddModal extends Component {
                         onChangeText={ (text) => this.setState({workoutName: text})}
                         placeholder="Name"
                         value={this.state.workoutName}
+                        maxLength={24}
                     />
                     <TextInput
                         style={styles.inputStyle}
                         onChangeText={ (text) => this.setState({weight: text})}
                         placeholder="Weight"
                         value={this.state.weight}
+                        maxLength={8}
                     />
                     <TextInput
                         style={styles.inputStyle}
                         onChangeText={ (text) => this.setState({workoutSet: text})}
                         placeholder="Set"
                         value={this.state.workoutSet}
+                        maxLength={6}
                     />
                     <TextInput
                         style={styles.inputStyle}
                         onChangeText={(text) => this.setState({rep: text})}
                         placeholder="Repeat"
                         value={this.state.rep}
+                        maxLength={6}
                     />
                 <Button style={styles.button}
                     containerStyle={{

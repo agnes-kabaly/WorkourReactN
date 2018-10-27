@@ -154,6 +154,7 @@ export default class AddDays extends React.Component {
                                        placeholderTextColor="#ffffff"
                                        selectionColor="#ffffff"
                                        value={this.state.dayName}
+                                       maxLength={30}
                                        onChangeText={(dayName) => this.setState({dayName})}
                             />
 

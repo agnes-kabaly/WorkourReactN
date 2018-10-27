@@ -4,6 +4,8 @@ import {
     View,
     Alert,
     Text,
+    Image,
+    TouchableOpacity,
 } from 'react-native';
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
@@ -109,7 +111,9 @@ export default class FlatListItem extends Component {
             <Swipeout {...swipeSettings} backgroundColor='transparent'>
                 <View style={{
                     flex: 1,
-                    height: 60,
+                    height: 64,
+                    width: 330,
+                    alignSelf: 'center',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -118,13 +122,33 @@ export default class FlatListItem extends Component {
                     borderColor:'black',
                     backgroundColor: this.props.index % 2 == 0 ? '#232E33': '#35454D'
                 }}>
-                    <View>
-                        <Text style={[styles.flatListItem, {fontWeight: 'bold'}]}>{this.props.item.workoutName}</Text>
-                    </View>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text style={styles.flatListItem}>{this.props.item.weight}</Text>
-                        <Text style={styles.flatListItem}>{this.props.item.workoutSet}</Text>
-                        <Text style={styles.flatListItem}>{this.props.item.rep}</Text>
+                    <View style={styles.container}>
+                        <View>
+                            <TouchableOpacity>
+                                <Image
+                                    style={styles.btnImg}
+                                    source={require('../assets/BtnOk.png')}
+                                ></Image>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{flexDirection: 'column'}}>
+                            <View>
+                                <Text style={[styles.flatListItem, {fontWeight: 'bold', alignSelf: 'center'}]}>{this.props.item.workoutName}</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                                <Text style={styles.flatListItem}>{this.props.item.weight}</Text>
+                                <Text style={styles.flatListItem}>{this.props.item.workoutSet}</Text>
+                                <Text style={styles.flatListItem}>{this.props.item.rep}</Text>
+                            </View>
+                        </View>
+                        <View>
+                            <TouchableOpacity style={styles.delTouch}>
+                                <Image
+                                    style={styles.btnImg}
+                                    source={require('../assets/xbtn5.png')}
+                                ></Image>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </Swipeout>
@@ -133,9 +157,28 @@ export default class FlatListItem extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        position: 'relative',
+        padding: 20,
+        paddingRight: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
     flatListItem: {
         color: 'white',
         padding: 10,
         fontSize: 16,
+        paddingLeft: 20,
     },
+    btnImg: {
+        width: 42,
+        height: 42,
+    },
+    delTouch: {
+        position: 'relative',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+    }
 });
