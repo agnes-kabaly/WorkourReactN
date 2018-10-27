@@ -5,8 +5,85 @@ import { StyleSheet, View } from "react-native";
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 export default class ShowCalendar extends React.Component {
-    render() {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user: "",
+            userId: 1,
+            calendars: [],
+            newDaysObject: {},
+        }
+    }
+
+    createCalendars(myResponseJ) {
+        for (var respInd in myResponseJ.calendars) {
+            this.state.calendars[respInd] = myResponseJ.calendars[respInd];
+        }
+    }
+
+    handleDateMaking(status) {
+        switch (status) {
+            case 'COMPLETED':
+                return 'white';
+                break;
+            case 'ABORTED':
+                return 'red';
+                break;
+            case 'IMPROVED':
+                return 'green';
+                break;
+            case 'DESCENDED':
+                return '#00BFFF';
+            default:
+                return 'black';
+        }
+    };
+
+    generateNewDaysObject() {
+        this.state.calendars.forEach((day) => {
+            this.setState({
+                newDaysObject: {
+                    ...this.state.newDaysObject,
+                    [day.date]: {
+                        customStyles: {
+                            container:  {
+                                backgroundColor: day.color,
+                            },
+                            text: {
+                                fontWeight: 'bold',
+                                color: this.handleDateMaking(day.state)
+                            }
+                        }
+                    }
+                }
+            })
+        })
+    }
+
+    componentDidMount = () => {
+        //home:
+        fetch('http://192.168.0.152:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+        //tap:
+        //fetch('http://192.168.43.162:8080/getUserById?id=' + this.state.userId, {method: 'GET'})
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    user: responseJson,
+                });
+
+                this.createCalendars(responseJson);
+
+                this.generateNewDaysObject();
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    render() {
         const { navigate } = this.props.navigation;
 
         return (
@@ -23,10 +100,8 @@ export default class ShowCalendar extends React.Component {
                 <View style={styles.container}>
                     <View style={styles.container}>
                         <Calendar
-                            markedDates={{
-                                '2018-10-28':{selected: true, selectedColor: 'green'},
-                            }}
-
+                            markingType={'custom'}
+                            markedDates={this.state.newDaysObject}
                         />
 
                     </View>
@@ -68,6 +143,6 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#1c313a',
         alignSelf: "center",
-        marginBottom: 40,
+        marginBottom: 30,
     }
 });
