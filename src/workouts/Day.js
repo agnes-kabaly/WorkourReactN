@@ -1,5 +1,14 @@
 import React from 'react';
-import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
+import {
+    View,
+    Text,
+    Alert,
+    Image,
+    FlatList,
+    Dimensions,
+    StyleSheet,
+    TouchableOpacity,
+} from 'react-native';
 import FlatListItem from './FlatListItem';
 import EditModal from './EditModal';
 import flatListData from '../data/flatListData';
@@ -16,6 +25,8 @@ export default class Day extends React.Component {
             deletedRowKey: null,
             exerciseList: this.props.navigation.state.params.workoutDay.workouts,
             deletedExList: [],
+            parentLength: flatListData.valueOf().length,
+            dayStatus: 'ABORTED',
         }
     }
 
@@ -27,17 +38,38 @@ export default class Day extends React.Component {
         )
     };
 
+    setDayStatus(size) {
+        if (size > 0) {
+            this.setState({
+                dayStatus: "ABORTED",
+            })
+        } else {
+            this.setState({
+                dayStatus: "COMPLETED",
+            })
+        }
+        Alert.alert('Alert', 'Are you sure you want to SUBMIT?',
+            [
+                {text: 'No', onPress: () => console.log('Cancel Pressed on SUBMIT'), style: 'cancel'},
+                {text: 'Yes', onPress: () => {
+                    console.log("Submitted day status: " + this.state.dayStatus);
+                }},
+            ],
+            {cancelable: true}
+        );
+    };
+
     refreshFlatList = (activeKey) => {
+        this.refs.flatList.scrollToOffset({ offset: 0, animated: true });
         this.setState((prevState) => {
             return {
-                deletedRowKey: activeKey
+                deletedRowKey: activeKey,
+                parentLength: flatListData.valueOf().length,
             };
         });
-        this.refs.flatList.scrollToOffset({ offset: 0, animated: true });
     };
 
     componentDidMount = () => {
-
         if (this.state.exerciseList.valueOf().length == 0) {
             while (flatListData.valueOf().length != this.state.exerciseList.valueOf().length) {
                 flatListData.pop();
@@ -47,7 +79,6 @@ export default class Day extends React.Component {
         while (flatListData.valueOf().length != 0) {
             flatListData.pop();
         }
-
         this.state.deletedExList.push(this.state.deletedRowKey);
         for(var workouts in this.state.exerciseList) {
             for (var deletedIndex in this.state.deletedExList) {
@@ -61,7 +92,6 @@ export default class Day extends React.Component {
     };
 
     render(){
-
         return (
             <View style={styles.container}>
                 <View style={styles.flatContainer}>
@@ -90,6 +120,15 @@ export default class Day extends React.Component {
 
                 </EditModal>
 
+                <View>
+                    <TouchableOpacity style={styles.submitStyle} onPress={() => this.setDayStatus(this.state.parentLength)}>
+                        <Image
+                            style={styles.btnImg}
+                            source={this.state.oneDel ? null : require('../assets/green-submit-button-png-1.png')}
+                        ></Image>
+                    </TouchableOpacity>
+                </View>
+
             </View>
         )
     }
@@ -114,5 +153,18 @@ const styles = StyleSheet.create({
         width: "86%",
         backgroundColor: '#e6b800',
         marginLeft: "14%",
+    },
+    submitStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        padding: 8,
+    },
+    btnImg: {
+        width: 180,
+        height: 48,
+        borderWidth: 2,
+        borderRadius: 8,
+        borderColor: 'black'
     },
 });

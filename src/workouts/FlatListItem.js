@@ -18,6 +18,7 @@ export default class FlatListItem extends Component {
             activeRowKey: null,
             numberOfRefresh: 0,
             errors: "",
+            oneDel: false,
         };
     }
 
@@ -62,6 +63,23 @@ export default class FlatListItem extends Component {
             Alert.alert("Oops...", errors);
         }
     }
+
+    onPressOk = () => {
+        flatListData.splice(this.props.index, 1);
+        this.props.parentFlatList.refreshFlatList(this.state.activeRowKey);
+    };
+
+    onPressDel = () => {
+        Alert.alert('Alert', 'Are you sure you want to SKIP this exercise today?',
+            [
+                {text: 'No', onPress: () => console.log('Cancel Pressed on EXERCISE'), style: 'cancel'},
+                {text: 'Yes', onPress: () => {
+                    this.setState({oneDel: true});
+                }},
+            ],
+            {cancelable: true}
+        );
+    };
 
     render() {
 
@@ -124,10 +142,10 @@ export default class FlatListItem extends Component {
                 }}>
                     <View style={styles.container}>
                         <View>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={this.onPressOk} disabled={this.state.oneDel}>
                                 <Image
                                     style={styles.btnImg}
-                                    source={require('../assets/BtnOk.png')}
+                                    source={this.state.oneDel ? null : require('../assets/BtnOk.png')}
                                 ></Image>
                             </TouchableOpacity>
                         </View>
@@ -142,10 +160,10 @@ export default class FlatListItem extends Component {
                             </View>
                         </View>
                         <View>
-                            <TouchableOpacity style={styles.delTouch}>
+                            <TouchableOpacity style={styles.delTouch} onPress={this.onPressDel} disabled={this.state.oneDel}>
                                 <Image
                                     style={styles.btnImg}
-                                    source={require('../assets/xbtn5.png')}
+                                    source={this.state.oneDel ? null : require('../assets/xbtn5.png')}
                                 ></Image>
                             </TouchableOpacity>
                         </View>
