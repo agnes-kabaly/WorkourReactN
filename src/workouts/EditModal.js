@@ -16,6 +16,8 @@ export default class EditModal extends Component {
             workoutSet: "",
             rep: "",
             errors: "",
+            oldValue: 0,
+            newValue: 0,
         }
     }
 
@@ -32,11 +34,35 @@ export default class EditModal extends Component {
         this.refs.myModal.open();
     };
 
-    generateKey = (numberOfCharacters) => {
-        return require('random-string')({length: numberOfCharacters});
+    separateNums(exProper) {
+        return exProper.replace(/[^0-9]/g, "");
+    }
+
+    ifNull(param) {
+        if (param == 0) {
+            return ++param;
+        }
+        return param;
+    }
+
+    generateValue(weight, set, repeat, flag) {
+        let num = this.ifNull(weight) * this.ifNull(set) * this.ifNull(repeat);
+        if (flag == 'old') {
+            this.setState({
+                oldValue: num
+            })
+        } else if (flag == 'new') {
+            this.setState({
+                newValue: num,
+            })
+        }
     };
 
     async onSavePressed() {
+
+        this.generateValue(this.separateNums(this.state.weight),
+            this.separateNums(this.state.workoutSet),
+            this.separateNums(this.state.rep, 'new'));
 
         if (this.state.workoutName.length == 0 ||
             this.state.weight.length == 0 ||
@@ -51,6 +77,10 @@ export default class EditModal extends Component {
         if (foundIndex < 0) {
             return;
         }
+
+        this.generateValue(this.separateNums(flatListData[foundIndex].weight),
+            this.separateNums(flatListData[foundIndex].workoutSet),
+            this.separateNums(flatListData[foundIndex].rep), 'old');
 
         flatListData[foundIndex].workoutName = this.state.workoutName;
         flatListData[foundIndex].weight = this.state.weight;
