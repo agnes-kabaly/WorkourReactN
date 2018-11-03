@@ -12,6 +12,7 @@ import {
 import FlatListItem from './FlatListItem';
 import EditModal from './EditModal';
 import flatListData from '../data/flatListData';
+import moment from 'moment';
 
 var screen = Dimensions.get('window');
 
@@ -28,6 +29,8 @@ export default class Day extends React.Component {
             parentLength: flatListData.valueOf().length,
             dayStatus: 'ABORTED',
             editResult: 0,
+            userId: 1,
+            errors: "",
         }
     }
 
@@ -46,22 +49,32 @@ export default class Day extends React.Component {
     };
 
     setDayStatus(size) {
-        //console.log("itt after megpróbálom: " + this.state.editResult);
 
         if (size > 0) {
             this.setState({
                 dayStatus: "ABORTED",
+            })
+        } else if (this.state.editResult > 0) {
+            this.setState({
+                dayStatus: "DESCENDED",
+            })
+        } else if (this.state.editResult < 0) {
+            this.setState({
+                dayStatus: "IMPROVED",
             })
         } else {
             this.setState({
                 dayStatus: "COMPLETED",
             })
         }
+
         Alert.alert('Alert', 'Are you sure you want to SUBMIT?',
             [
                 {text: 'No', onPress: () => console.log('Cancel Pressed on SUBMIT'), style: 'cancel'},
                 {text: 'Yes', onPress: () => {
                     console.log("Submitted day status: " + this.state.dayStatus);
+                    this.onSubmitPressed();
+
                 }},
             ],
             {cancelable: true}
@@ -77,6 +90,40 @@ export default class Day extends React.Component {
             };
         });
     };
+
+    async onSubmitPressed() {
+        try {
+            //home:
+            let response = await fetch('http://192.168.0.152:8080/addCalendar', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    calendar : {
+                        date : moment(new Date, 'YYYY-MM-DD').format('YYYY-MM-DD'),
+                        state: this.state.dayStatus,
+                        color : this.props.navigation.state.params.workoutDay.color
+                    },
+                    userId: {
+                        userId : this.state.userId
+                    }
+                })
+            });
+            let res = await response.text();
+            if (response.status >= 200 && response.status < 300) {
+                console.log("save Calendar date success: " + res);
+                Alert.alert("Calendar date saved!", res);
+            } else {
+                errors = res;
+                throw errors;
+            }
+        } catch (errors) {
+            console.log("catch errors: " + errors);
+            Alert.alert("Ooops..." + errors);
+        }
+    }
 
     componentDidMount = () => {
         if (this.state.exerciseList.valueOf().length == 0) {

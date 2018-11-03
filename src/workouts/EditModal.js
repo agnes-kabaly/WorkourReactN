@@ -69,8 +69,6 @@ export default class EditModal extends Component {
         let oldVal = this.generateValue(this.separateNums(flatListData[foundIndex].weight),
             this.separateNums(flatListData[foundIndex].workoutSet), this.separateNums(flatListData[foundIndex].rep));
 
-        this.props.afterEdit(oldVal - newVal);
-
         flatListData[foundIndex].workoutName = this.state.workoutName;
         flatListData[foundIndex].weight = this.state.weight;
         flatListData[foundIndex].workoutSet = this.state.workoutSet;
@@ -80,6 +78,9 @@ export default class EditModal extends Component {
         this.refs.myModal.close();
 
         if (this.props.passedVal == true) {
+
+            this.props.afterEdit(oldVal - newVal);
+
             try {
                 //let response = await fetch('http://192.168.150.158:8080/editExercise', {
                 //home:
