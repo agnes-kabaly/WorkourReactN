@@ -16,8 +16,6 @@ export default class EditModal extends Component {
             workoutSet: "",
             rep: "",
             errors: "",
-            oldValue: 0,
-            newValue: 0,
         }
     }
 
@@ -45,24 +43,11 @@ export default class EditModal extends Component {
         return param;
     }
 
-    generateValue(weight, set, repeat, flag) {
-        let num = this.ifNull(weight) * this.ifNull(set) * this.ifNull(repeat);
-        if (flag == 'old') {
-            this.setState({
-                oldValue: num
-            })
-        } else if (flag == 'new') {
-            this.setState({
-                newValue: num,
-            })
-        }
+    generateValue(weight, set, repeat) {
+        return (this.ifNull(weight) * this.ifNull(set) * this.ifNull(repeat));
     };
 
     async onSavePressed() {
-
-        this.generateValue(this.separateNums(this.state.weight),
-            this.separateNums(this.state.workoutSet),
-            this.separateNums(this.state.rep, 'new'));
 
         if (this.state.workoutName.length == 0 ||
             this.state.weight.length == 0 ||
@@ -78,9 +63,13 @@ export default class EditModal extends Component {
             return;
         }
 
-        this.generateValue(this.separateNums(flatListData[foundIndex].weight),
-            this.separateNums(flatListData[foundIndex].workoutSet),
-            this.separateNums(flatListData[foundIndex].rep), 'old');
+        let newVal = this.generateValue(this.separateNums(this.state.weight),
+            this.separateNums(this.state.workoutSet), this.separateNums(this.state.rep));
+
+        let oldVal = this.generateValue(this.separateNums(flatListData[foundIndex].weight),
+            this.separateNums(flatListData[foundIndex].workoutSet), this.separateNums(flatListData[foundIndex].rep));
+
+        this.props.afterEdit(oldVal - newVal);
 
         flatListData[foundIndex].workoutName = this.state.workoutName;
         flatListData[foundIndex].weight = this.state.weight;

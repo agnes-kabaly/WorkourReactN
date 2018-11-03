@@ -27,8 +27,15 @@ export default class Day extends React.Component {
             deletedExList: [],
             parentLength: flatListData.valueOf().length,
             dayStatus: 'ABORTED',
+            editResult: 0,
         }
     }
+
+    afterEdit = (value) => {
+        this.setState({
+            editResult: this.state.editResult + value,
+        });
+    };
 
     renderSeparator = () => {
         return(
@@ -39,6 +46,8 @@ export default class Day extends React.Component {
     };
 
     setDayStatus(size) {
+        //console.log("itt after megpróbálom: " + this.state.editResult);
+
         if (size > 0) {
             this.setState({
                 dayStatus: "ABORTED",
@@ -116,7 +125,7 @@ export default class Day extends React.Component {
                     </FlatList>
                 </View>
 
-                <EditModal ref={"editModal"} parentFlatList={this} passedVal={this.state.realEdit}>
+                <EditModal ref={"editModal"} parentFlatList={this} passedVal={this.state.realEdit} afterEdit={this.afterEdit}>
 
                 </EditModal>
 
