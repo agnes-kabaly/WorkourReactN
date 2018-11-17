@@ -77,8 +77,6 @@ export default class ShowCalendar extends React.Component {
 
                 this.createCalendars(responseJson);
 
-                //this.generateNewDaysObject();
-
             })
             .catch((error) => {
                 console.error(error);

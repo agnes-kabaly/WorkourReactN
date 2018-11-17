@@ -34,20 +34,14 @@ export default class FlatListItem extends Component {
         try {
             //let response = await fetch('http://192.168.150.158:8080/deleteExercise', {
             //home:
-            let response = await fetch('http://192.168.0.152:8080/deleteExercise', {
+            let response = await fetch('http://192.168.0.152:8080/deleteExercise?key='
+                + this.props.item.key + '&dayId=' + this.props.passedId, {
+
                 method:'DELETE',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    workoutExerciseKey: {
-                        key: this.props.item.key,
-                    },
-                    dayId : {
-                        dayId: this.props.passedId,
-                    },
-                })
             });
             let res = await response.text();
 
