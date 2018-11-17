@@ -94,21 +94,16 @@ export default class Day extends React.Component {
     async onSubmitPressed() {
         try {
             //home:
-            let response = await fetch('http://192.168.0.152:8080/addCalendar', {
+            let response = await fetch('http://192.168.0.152:8080/addCalendar?userId=' + this.state.userId, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    calendar : {
-                        date : moment(new Date, 'YYYY-MM-DD').format('YYYY-MM-DD'),
-                        state: this.state.dayStatus,
-                        color : this.props.navigation.state.params.workoutDay.color
-                    },
-                    userId: {
-                        userId : this.state.userId
-                    }
+                    date : moment(new Date, 'YYYY-MM-DD').format('YYYY-MM-DD'),
+                    state: this.state.dayStatus,
+                    color : this.props.navigation.state.params.workoutDay.color
                 })
             });
             let res = await response.text();
