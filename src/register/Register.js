@@ -30,8 +30,8 @@ export default class RegisterFull extends Component {
 
         if (this.state.userName.length == 0 ||
             this.state.email.length == 0 ||
-            !this.state.email.contains('@') ||
-            !this.state.email.contains('.com') ||
+            !this.state.email.includes('@') ||
+            !this.state.email.includes('.com') ||
             this.state.email.indexOf('@') == 0 ||
             this.state.password.length == 0 ||
             this.state.password_confirmation.length == 0) {
@@ -46,9 +46,9 @@ export default class RegisterFull extends Component {
 
         try {
             // cc:
-            let response = await fetch('http://192.168.150.158:8080/regUser', {
+            //let response = await fetch('http://192.168.150.158:8080/regUser', {
             // home:
-            //let response = await fetch('http://192.168.0.152:8080/regUser', {
+            let response = await fetch('http://192.168.0.152:8080/regUser', {
             // tap:
             //let response = await fetch('http://192.168.1.22:8080/regUser', {
             //herokuByImi:
