@@ -63,7 +63,9 @@ export default class AddDays extends React.Component {
                 //cc:
                 //let response = await fetch('http://192.168.150.158:8080/addNewDay', {
                 //home:
-                let response = await fetch('http://192.168.0.152:8080/addNewDay?userId=' + this.state.userId, {
+                //let response = await fetch('http://192.168.0.152:8080/addNewDay?userId=' + this.state.userId, {
+                //artist:
+                let response = await fetch('http://192.168.0.227:8080/addNewDay?userId=' + this.state.userId, {
                 //tap:
                 //let response = await fetch('http://192.168.43.162:8080/addNewDay', {
                 //herokuByImi:
@@ -73,14 +75,13 @@ export default class AddDays extends React.Component {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                     },
-                    body: //JSON.stringify({
-                    //}),
-                    {
+                    body: JSON.stringify({
                         workoutDay: {
                             dayName: this.state.dayName,
-                            color: this.state.color},
+                            color: this.state.color
+                        },
                         exercises: flatListData
-                    }
+                    }),
                 });
 
                 let res = await response.text();
